@@ -1,5 +1,22 @@
 #!/bin/bash
 
+function WaitForBackgroundProcess
+{
+    PROCESS_ID=$1
+
+    while true; do
+        if kill -0 $PROCESS_ID 2>/dev/null; then
+            echo -ne "."
+        else
+            break
+        fi
+        sleep 0.5s
+    done
+
+    # Line break
+    echo
+}
+
 function ParseSteamAcf
 {
     local path=$1
