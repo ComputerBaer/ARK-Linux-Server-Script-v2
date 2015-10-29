@@ -1,1 +1,1 @@
-# ARK-Linux-Server-Script-v2
+# ARK - Linux Server Script v2
