@@ -118,8 +118,13 @@ function ScriptConfiguration
     local CONFIG_FILE="configuration.ini"
     local CONFIG_SAMPLE_FILE="configuration-sample.ini"
 
+    if [ ! -f $CONFIG_SAMPLE_FILE ]; then
+        curl -s "${SCRIPT_REPOSITORY_URL}${CONFIG_SAMPLE_FILE}" -o $CONFIG_SAMPLE_FILE
+    fi
+    source $CONFIG_SAMPLE_FILE
+
     if [ ! -f $CONFIG_FILE ]; then
-        curl -s "${SCRIPT_REPOSITORY_URL}${CONFIG_SAMPLE_FILE}" -o $CONFIG_FILE
+        cp $CONFIG_SAMPLE_FILE $CONFIG_FILE
     fi
     source $CONFIG_FILE
 
@@ -162,7 +167,8 @@ function Main
 
     # Update Script
     UpdateScript
-    # Reload Language File
+    # Reload Configuration and Language
+    ScriptConfiguration
     ScriptLanguage 1
 }
 
