@@ -1,2 +1,5 @@
 # Script Temporary Directory
 /.temp/
+
+# Script Configuration
+/configuration.ini

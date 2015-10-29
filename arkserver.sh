@@ -10,8 +10,8 @@ SCRIPT_REPOSITORY_URL="https://raw.githubusercontent.com/${SCRIPT_REPOSITORY_USE
 CHECK_FOR_UPDATES=true
 
 SCRIPT_FILE_NAME=$(basename $(readlink -fn $0))
-SCRIPT_BASE_DIR=$(dirname $(readlink -fn $0))
-SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}/.temp/"
+SCRIPT_BASE_DIR=$(dirname $(readlink -fn $0))/
+SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}.temp/"
 
 # Some Colors
 FG_RED='\e[31m'
@@ -40,7 +40,7 @@ function UpdateScript
         echo -e "${FG_RED}Update check failed! (Can not download checksums)${RESET_ALL}"
         return
     fi
-    echo $Checksums > $CHECKSUMS_FILE
+    echo "$Checksums" > $CHECKSUMS_FILE
 
     # Compare Checksums
     local CheckResult=$(md5sum -c $CHECKSUMS_FILE --quiet 2> /dev/null)
@@ -64,7 +64,7 @@ function UpdateScript
             if [ ! -d $dir ]; then
                 mkdir $dir
             fi
-            echo $FileContent > ${LINE[0]}
+            #echo "$FileContent" > "${LINE[0]}"
 
             if [[ $(basename ${LINE[0]}) == $SCRIPT_FILE_NAME ]]; then
                 selfUpdated=true
@@ -96,6 +96,25 @@ function UpdateScript
     fi
 }
 
+# ScriptConfiguration Function
+function ScriptConfiguration
+{
+    local CONFIG_FILE="configuration.ini"
+    local CONFIG_SAMPLE_FILE="configuration-sample.ini"
+
+    if [ ! -f $CONFIG_FILE ]; then
+        curl -s "${SCRIPT_REPOSITORY_URL}${CONFIG_SAMPLE_FILE}" -o $CONFIG_FILE
+    fi
+    source $CONFIG_FILE
+
+    if [ ! -z $ScriptBranch ]; then
+        SCRIPT_REPOSITORY_BRANCH=$ScriptBranch
+    fi
+    if [ ! -z $ScriptUpdates ]; then
+        CHECK_FOR_UPDATES=$ScriptUpdates
+    fi
+}
+
 # Main Function
 function Main
 {
@@ -103,6 +122,7 @@ function Main
         mkdir $SCRIPT_TEMP_DIR
     fi
 
+    ScriptConfiguration
     UpdateScript
 }
 
