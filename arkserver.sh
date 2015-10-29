@@ -64,7 +64,7 @@ function UpdateScript
             if [ ! -d $dir ]; then
                 mkdir $dir
             fi
-            #echo "$FileContent" > "${LINE[0]}"
+            echo "$FileContent" > "${LINE[0]}"
 
             if [[ $(basename ${LINE[0]}) == $SCRIPT_FILE_NAME ]]; then
                 selfUpdated=true
