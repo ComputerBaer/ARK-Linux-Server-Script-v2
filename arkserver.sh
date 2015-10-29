@@ -207,6 +207,10 @@ function InitScript
 function RunAction
 {
     local name=$1
+    if [ -z $name ]; then
+        return
+    fi
+
     local ACTION_FILE="${SCRIPT_ACTION_DIR}${name}.sh"
     if [ -f $ACTION_FILE ]; then
         source $ACTION_FILE
