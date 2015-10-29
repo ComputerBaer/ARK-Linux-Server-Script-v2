@@ -219,7 +219,15 @@ function RunAction
     fi
 }
 
+# CleanUp Function
+function CleanUp
+{
+    rm -r -f $SCRIPT_TEMP_DIR
+}
+
 # Run Main Functions
 InitScript
 RunAction $1
+CleanUp
+
 exit 0
