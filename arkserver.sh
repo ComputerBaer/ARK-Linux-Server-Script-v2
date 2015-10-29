@@ -112,6 +112,23 @@ function UpdateScript
     fi
 }
 
+# CheckBoolean Function
+# Param1 - Value to check
+# Param2 - Default, if value is invalid
+function CheckBoolean
+{
+    local bool=$1
+    local default=$2
+
+    if [[ $bool == true ]] || [[ $bool == false ]]; then
+        # Is valid Boolean
+        echo ${bool,,}
+    else
+        # Is invalid Boolean
+        echo ${default,,}
+    fi
+}
+
 # ScriptConfiguration Function
 function ScriptConfiguration
 {
@@ -131,9 +148,7 @@ function ScriptConfiguration
     if [ ! -z $ScriptBranch ]; then
         SCRIPT_REPOSITORY_BRANCH=$ScriptBranch
     fi
-    if [ ! -z $ScriptUpdates ]; then
-        CHECK_FOR_UPDATES=$ScriptUpdates
-    fi
+    CHECK_FOR_UPDATES=$(CheckBoolean $ScriptUpdates true)
 }
 
 # ScriptLanguage Function
