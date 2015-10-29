@@ -70,7 +70,7 @@ function UpdateScript
                 selfUpdated=true
             fi
         fi
-    done <<< $CheckResult
+    done <<< "$CheckResult"
 
     # Main Script was updated
     if [[ $selfUpdated == true ]]; then
