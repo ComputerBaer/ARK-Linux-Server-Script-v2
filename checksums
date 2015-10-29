@@ -4,3 +4,6 @@ c37e4a6bdb6e48b69444d955415befc7  .script/languages/de.lang
 f2e7ff92fbcc65fe28a4e8df3eb19364  .script/languages/en.lang
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
 7f3844cedd73426aa50bcc637673820c  .script/steam.sh
+adb4f6b04adca0a24bf734e88b89f1e4  .script/actions/start.sh
+d5483cdc8b1d634d9bf62f1684857230  .script/actions/stop.sh
+a44553d7280cd0c5df72858f299138ee  .script/actions/install.sh
