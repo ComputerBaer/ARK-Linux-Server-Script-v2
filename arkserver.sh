@@ -11,8 +11,9 @@ CHECK_FOR_UPDATES=true
 
 SCRIPT_FILE_NAME=$(basename $(readlink -fn $0))
 SCRIPT_BASE_DIR=$(dirname $(readlink -fn $0))/
+SCRIPT_SCRIPT_DIR="${SCRIPT_BASE_DIR}.script/"
+SCRIPT_LANG_DIR="${SCRIPT_SCRIPT_DIR}languages/"
 SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}.temp/"
-SCRIPT_LANG_DIR="${SCRIPT_BASE_DIR}.script/languages/"
 
 # Some Colors
 FG_RED='\e[31m'
@@ -169,6 +170,16 @@ function ScriptLanguage
     fi
 }
 
+# LoadScripts Function
+function LoadScripts
+{
+    for file in $SCRIPT_SCRIPT_DIR*; do
+        if [ -f $file ]; then
+            source $file
+        fi
+    done
+}
+
 # Main Function
 function Main
 {
@@ -185,6 +196,9 @@ function Main
     # Reload Configuration and Language
     ScriptConfiguration
     ScriptLanguage 1
+
+    # Load all Scripts
+    LoadScripts
 }
 
 # Run Main Function
