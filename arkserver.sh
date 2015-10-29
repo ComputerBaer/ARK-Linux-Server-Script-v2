@@ -62,7 +62,7 @@ function UpdateScript
         else
             local dir=$(dirname "${LINE[0]}")
             if [ ! -d $dir ]; then
-                mkdir $dir
+                mkdir -p $dir
             fi
             echo "$FileContent" > "${LINE[0]}"
 
@@ -119,7 +119,7 @@ function ScriptConfiguration
 function Main
 {
     if [ ! -d $SCRIPT_TEMP_DIR ]; then
-        mkdir $SCRIPT_TEMP_DIR
+        mkdir -p $SCRIPT_TEMP_DIR
     fi
 
     ScriptConfiguration
