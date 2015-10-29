@@ -1,0 +1,13 @@
+STR_YES="yes"
+STR_NO="no"
+STR_YES_OR_NO="Enter '${STR_YES}' or '${STR_NO}'"
+
+STR_UPDATE_DISABLED="Automatic updating is disabled!"
+STR_UPDATE_CHECKING="Search for updates ..."
+STR_UPDATE_CHECK_FAILED="Search for updates failed!"
+STR_UPDATE_UPTODATE="All files are up-to-date."
+STR_UPDATE_FOUND="Update found! Install it now ..."
+STR_UPDATE_FILE_FAILED="Updating the file '{0}' failed."
+STR_UPDATE_MAINFILE="Main script has been updated. Restart script in {0} seconds ..."
+STR_UPDATE_ERROR_CONTINUE="Error occurred during the update! Should be tried to continue? ${STR_YES}/${STR_NO}"
+STR_UPDATE_SUCCESSFULL="Update completed successfully."

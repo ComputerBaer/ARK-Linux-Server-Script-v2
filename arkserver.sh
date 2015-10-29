@@ -12,12 +12,28 @@ CHECK_FOR_UPDATES=true
 SCRIPT_FILE_NAME=$(basename $(readlink -fn $0))
 SCRIPT_BASE_DIR=$(dirname $(readlink -fn $0))/
 SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}.temp/"
+SCRIPT_LANG_DIR="${SCRIPT_BASE_DIR}.script/languages/"
 
 # Some Colors
 FG_RED='\e[31m'
 FG_GREEN='\e[32m'
 FG_YELLOW='\e[33m'
 RESET_ALL='\e[0m'
+
+# Some Strings
+STR_YES="yes"
+STR_NO="no"
+STR_YES_OR_NO="Enter '${STR_YES}' or '${STR_NO}'"
+
+STR_UPDATE_DISABLED="Automatic updating is disabled!"
+STR_UPDATE_CHECKING="Search for updates ..."
+STR_UPDATE_CHECK_FAILED="Search for updates failed!"
+STR_UPDATE_UPTODATE="All files are up-to-date."
+STR_UPDATE_FOUND="Update found! Install it now ..."
+STR_UPDATE_FILE_FAILED="Updating the file '{0}' failed."
+STR_UPDATE_MAINFILE="Main script has been updated. Restart script in {0} seconds ..."
+STR_UPDATE_ERROR_CONTINUE="Error occurred during the update! Should be tried to continue? ${STR_YES}/${STR_NO}"
+STR_UPDATE_SUCCESSFULL="Update completed successfully."
 
 # Case Insensitive String Comparison
 shopt -s nocasematch
@@ -28,16 +44,16 @@ function UpdateScript
     local CHECKSUMS_FILE="${SCRIPT_TEMP_DIR}checksums"
 
     if [[ $CHECK_FOR_UPDATES != true ]]; then
-        echo -e "${FG_RED}Update check disabled!${RESET_ALL}"
+        echo -e "${FG_RED}${STR_UPDATE_DISABLED}${RESET_ALL}"
         return
     fi
 
-    echo -e "${FG_YELLOW}Checking for updates ...${RESET_ALL}"
+    echo -e "${FG_YELLOW}${STR_UPDATE_CHECKING}${RESET_ALL}"
 
     # Download Checksums
     local Checksums=$(curl -s "${SCRIPT_REPOSITORY_URL}checksums")
     if [[ $Checksums == "Not Found" ]]; then
-        echo -e "${FG_RED}Update check failed! (Can not download checksums)${RESET_ALL}"
+        echo -e "${FG_RED}${STR_UPDATE_CHECK_FAILED}${RESET_ALL}"
         return
     fi
     echo "$Checksums" > $CHECKSUMS_FILE
@@ -45,11 +61,11 @@ function UpdateScript
     # Compare Checksums
     local CheckResult=$(md5sum -c $CHECKSUMS_FILE --quiet 2> /dev/null)
     if [[ $CheckResult == "" ]]; then
-        echo -e "${FG_GREEN}All files are up to date!${RESET_ALL}"
+        echo -e "${FG_GREEN}${STR_UPDATE_UPTODATE}${RESET_ALL}"
         return
     fi
 
-    echo -e "${FG_YELLOW}Update found! Installing it now ...${RESET_ALL}"
+    echo -e "${FG_YELLOW}${STR_UPDATE_FOUND}${RESET_ALL}"
 
     # Update Files
     local error=false
@@ -57,7 +73,7 @@ function UpdateScript
     while IFS=':' read -ra LINE; do
         local FileContent=$(curl -s "${SCRIPT_REPOSITORY_URL}${LINE[0]}")
         if [[ $FileContent == "Not Found" ]]; then
-            echo -e "${FG_RED}Update '${LINE[0]}' failed! (Can not download file)${RESET_ALL}"
+            echo -e "${FG_RED}${STR_UPDATE_FILE_FAILED/'{0}'/${LINE[0]}}${RESET_ALL}"
             error=true
         else
             local dir=$(dirname "${LINE[0]}")
@@ -74,7 +90,7 @@ function UpdateScript
 
     # Main Script was updated
     if [[ $selfUpdated == true ]]; then
-        echo -e "${FG_YELLOW}Main Script was updated! Restarting script in 5 Seconds ...${RESET_ALL}"
+        echo -e "${FG_YELLOW}${STR_UPDATE_MAINFILE/'{0}'/5}${RESET_ALL}"
         sleep 5s
         $0 $1
         exit 0
@@ -82,17 +98,17 @@ function UpdateScript
 
     # Error while updating
     if [[ $error == true ]]; then
-        echo -e "${FG_YELLOW}Error while updating! Try to continue? yes/no ${RESET_ALL}"
-        while [[ $input != "yes" ]]; do
+        echo -e "${FG_YELLOW}${STR_UPDATE_ERROR_CONTINUE}${RESET_ALL}"
+        while [[ $input != $STR_YES ]]; do
             read input
-            if [[ $input == "no" ]]; then
+            if [[ $input == $STR_NO ]]; then
                 exit 0
-            elif [[ $input != "yes" ]]; then
-                echo -e "${FG_YELLOW}Type 'yes' or 'no'${RESET_ALL}"
+            elif [[ $input != $STR_YES ]]; then
+                echo -e "${FG_YELLOW}${STR_YES_OR_NO}${RESET_ALL}"
             fi
         done
     else
-        echo -e "${FG_GREEN}Update completed successfully!${RESET_ALL}"
+        echo -e "${FG_GREEN}${STR_UPDATE_SUCCESSFULL}${RESET_ALL}"
     fi
 }
 
@@ -115,6 +131,24 @@ function ScriptConfiguration
     fi
 }
 
+# ScriptLanguage Function
+# Param1 - Missing Language is Error, 0/1
+function ScriptLanguage
+{
+    if [ -z $ScriptLanguage ]; then
+        return
+    fi
+
+    local LANGUAGE_FILE="${SCRIPT_LANG_DIR}${ScriptLanguage}.lang"
+    if [ -f $LANGUAGE_FILE ]; then
+        source $LANGUAGE_FILE
+    elif [ $1 -eq 1 ]; then
+        # String in language file not required
+        echo -e "${FG_RED}Language '${ScriptLanguage}' not found. Script execution is canceled.${RESET_ALL}"
+        exit 0
+    fi
+}
+
 # Main Function
 function Main
 {
@@ -122,8 +156,14 @@ function Main
         mkdir -p $SCRIPT_TEMP_DIR
     fi
 
+    # Load Configuration and Language
     ScriptConfiguration
+    ScriptLanguage 0
+
+    # Update Script
     UpdateScript
+    # Reload Language File
+    ScriptLanguage 1
 }
 
 # Run Main Function

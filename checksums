@@ -1,3 +1,5 @@
-ebe033bfb6c29080c21fa3725f6ba53a  arkserver.sh
-3cb67458cec3b3e995e48c17d17aab61  configuration-sample.ini
+67ea2e7c1dc670cf011e44cdb9989902  arkserver.sh
+be78e19ac469cb2807442830334a1192  configuration-sample.ini
+c37e4a6bdb6e48b69444d955415befc7  .script/languages/de.lang
+f2e7ff92fbcc65fe28a4e8df3eb19364  .script/languages/en.lang
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh

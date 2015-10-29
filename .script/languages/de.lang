@@ -1,0 +1,13 @@
+STR_YES="ja"
+STR_NO="nein"
+STR_YES_OR_NO="Gib '${STR_YES}' oder '${STR_NO}' ein"
+
+STR_UPDATE_DISABLED="Die automatische Aktualisierung ist deaktiviert!"
+STR_UPDATE_CHECKING="Suche nach Aktualisierungen ..."
+STR_UPDATE_CHECK_FAILED="Suche nach Aktualisierungen fehlgeschlagen!"
+STR_UPDATE_UPTODATE="Alle Dateien sind aktuell."
+STR_UPDATE_FOUND="Aktualisierung gefunden! Installiere sie jetzt ..."
+STR_UPDATE_FILE_FAILED="Aktualisieren der Datei '{0}' ist fehlgeschlagen!"
+STR_UPDATE_MAINFILE="Hauptskript wurde aktualisiert. Starte Skript in {0} Sekunden neu ..."
+STR_UPDATE_ERROR_CONTINUE="Während der Aktualisierung sind Fehler aufgetreten! Soll versucht werden fortzufahren? ${STR_YES}/${STR_NO}"
+STR_UPDATE_SUCCESSFULL="Aktualisierung erfolgreich abgeschlossen."
