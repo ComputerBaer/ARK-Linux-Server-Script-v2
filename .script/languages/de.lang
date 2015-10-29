@@ -11,3 +11,5 @@ STR_UPDATE_FILE_FAILED="Aktualisieren der Datei '{0}' ist fehlgeschlagen!"
 STR_UPDATE_MAINFILE="Hauptskript wurde aktualisiert. Starte Skript in {0} Sekunden neu ..."
 STR_UPDATE_ERROR_CONTINUE="Während der Aktualisierung sind Fehler aufgetreten! Soll versucht werden fortzufahren? ${STR_YES}/${STR_NO}"
 STR_UPDATE_SUCCESSFULL="Aktualisierung erfolgreich abgeschlossen."
+
+STR_ACTION_UNKNOWN="Die Aktion '{0}' kann nicht gefunden werden."

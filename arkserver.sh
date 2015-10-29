@@ -12,6 +12,7 @@ CHECK_FOR_UPDATES=true
 SCRIPT_FILE_NAME=$(basename $(readlink -fn $0))
 SCRIPT_BASE_DIR=$(dirname $(readlink -fn $0))/
 SCRIPT_SCRIPT_DIR="${SCRIPT_BASE_DIR}.script/"
+SCRIPT_ACTION_DIR="${SCRIPT_SCRIPT_DIR}actions/"
 SCRIPT_LANG_DIR="${SCRIPT_SCRIPT_DIR}languages/"
 SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}.temp/"
 
@@ -180,8 +181,8 @@ function LoadScripts
     done
 }
 
-# Main Function
-function Main
+# InitScript Function
+function InitScript
 {
     if [ ! -d $SCRIPT_TEMP_DIR ]; then
         mkdir -p $SCRIPT_TEMP_DIR
@@ -201,6 +202,20 @@ function Main
     LoadScripts
 }
 
-# Run Main Function
-Main
+# RunAction Function
+# Param1 - Name of the Action
+function RunAction
+{
+    local name=$1
+    local ACTION_FILE="${SCRIPT_ACTION_DIR}${name}.sh"
+    if [ -f $ACTION_FILE ]; then
+        source $ACTION_FILE
+    else
+        echo -e "${FG_RED}${STR_ACTION_UNKNOWN/'{0}'/$name}${RESET_ALL}"
+    fi
+}
+
+# Run Main Functions
+InitScript
+RunAction $1
 exit 0

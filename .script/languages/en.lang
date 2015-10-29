@@ -11,3 +11,5 @@ STR_UPDATE_FILE_FAILED="Updating the file '{0}' failed."
 STR_UPDATE_MAINFILE="Main script has been updated. Restart script in {0} seconds ..."
 STR_UPDATE_ERROR_CONTINUE="Error occurred during the update! Should be tried to continue? ${STR_YES}/${STR_NO}"
 STR_UPDATE_SUCCESSFULL="Update completed successfully."
+
+STR_ACTION_UNKNOWN="The action of '{0}' can not be found."
