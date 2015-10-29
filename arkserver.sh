@@ -94,6 +94,7 @@ function UpdateScript
     if [[ $selfUpdated == true ]]; then
         echo -e "${FG_YELLOW}${STR_UPDATE_MAINFILE/'{0}'/5}${RESET_ALL}"
         sleep 5s
+        echo # Line break
         $0 $1
         exit 0
     fi

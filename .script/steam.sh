@@ -13,8 +13,7 @@ function WaitForBackgroundProcess
         sleep 0.5s
     done
 
-    # Line break
-    echo
+    echo # Line break
 }
 
 function ParseSteamAcf
