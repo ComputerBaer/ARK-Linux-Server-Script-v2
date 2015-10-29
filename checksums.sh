@@ -11,6 +11,6 @@ md5sum arkserver.sh > checksums
 md5sum configuration-sample.ini >> checksums
 
 # Other Script Files
-md5sum .script/*.sh >> checksums
+find .script/ -type f -exec md5sum "{}" \; >> checksums
 
 echo "Done!"
