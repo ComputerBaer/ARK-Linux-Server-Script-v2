@@ -97,7 +97,6 @@ function UpdateScript
     if [[ $selfUpdated == true ]]; then
         echo -e "${FG_YELLOW}${STR_UPDATE_MAINFILE/'{0}'/5}${RESET_ALL}"
         sleep 5s
-        echo # Line break
         $0 $1
         exit 0
     fi
@@ -188,6 +187,8 @@ function LoadScripts
 # InitScript Function
 function InitScript
 {
+    clear
+
     if [ ! -d $SCRIPT_TEMP_DIR ]; then
         mkdir -p $SCRIPT_TEMP_DIR
     fi
