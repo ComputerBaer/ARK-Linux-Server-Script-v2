@@ -3,3 +3,7 @@
 
 # Script Configuration
 /configuration.ini
+
+# Steam Directories
+/steamcmd/
+/steamapps/

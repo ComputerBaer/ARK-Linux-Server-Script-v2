@@ -13,3 +13,8 @@ STR_UPDATE_ERROR_CONTINUE="Error occurred during the update! Should be tried to 
 STR_UPDATE_SUCCESSFULL="Update completed successfully."
 
 STR_ACTION_UNKNOWN="The action of '{0}' can not be found."
+
+STR_STEAM_INSTALL="Install Steam ..."
+STR_STEAM_DOWNLOAD="Download Steam ..."
+STR_STEAM_EXTRACT="Extract Steam ..."
+STR_STEAM_SUCCESSFULL="Steam installed successfully."

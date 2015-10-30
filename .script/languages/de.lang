@@ -13,3 +13,8 @@ STR_UPDATE_ERROR_CONTINUE="Während der Aktualisierung sind Fehler aufgetreten! 
 STR_UPDATE_SUCCESSFULL="Aktualisierung erfolgreich abgeschlossen."
 
 STR_ACTION_UNKNOWN="Die Aktion '{0}' kann nicht gefunden werden."
+
+STR_STEAM_INSTALL="Installiere Steam ..."
+STR_STEAM_DOWNLOAD="Lade Steam herunter ..."
+STR_STEAM_EXTRACT="Entpacke Steam ..."
+STR_STEAM_SUCCESSFULL="Steam erfolgreich installiert."
