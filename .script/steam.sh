@@ -6,6 +6,9 @@
 function WaitForBackgroundProcess
 {
     local PROCESS_ID=$1
+    if [ -z $PROCESS_ID ]; then
+        return
+    fi
 
     local COLOR=$FG_WHITE
     if [ ! -z $2 ]; then
@@ -47,6 +50,69 @@ function InstallSteam
 
     cd $SCRIPT_BASE_DIR
     echo -e "${FG_GREEN}${STR_STEAM_SUCCESSFULL}${RESET_ALL}"
+}
+
+# SteamAppLatestVersion Function
+function SteamAppLatestVersion
+{
+    local VERSION_FILE="${SCRIPT_TEMP_DIR}appversion"
+
+    if [ $GAME_VERSION_LATEST -gt 0 ]; then
+        echo -e "${FG_YELLOW}${STR_STEAM_VERSION_LATEST_DONE/'{0}'/$GAME_VERSION_LATEST}${RESET_ALL}"
+        return
+    fi
+
+    if [ ! -d $STEAM_CMD_DIR ]; then
+        InstallSteam
+    fi
+
+    if [[ $STEAM_CLEAR_CACHE == true ]]; then
+        rm -r -f $STEAM_CHACHE_DIR
+        echo -e "${FG_YELLOW}${STR_STEAM_CACHE_CLEARED}${RESET_ALL}"
+    fi
+
+    cd $STEAM_CMD_DIR
+    echo -ne "${FG_YELLOW}${STR_STEAM_VERSION_LATEST_START}${RESET_ALL}"
+    ./steamcmd.sh +login anonymous +app_info_print $GAME_APPID +quit | ParseSteamAcf "${GAME_APPID}.depots.branches.public.buildid" > $VERSION_FILE &
+    WaitForBackgroundProcess $! $FG_YELLOW
+    cd $SCRIPT_BASE_DIR
+
+    GAME_VERSION_LATEST=$(cat $VERSION_FILE)
+    echo -e "${FG_YELLOW}${STR_STEAM_VERSION_LATEST_DONE/'{0}'/$GAME_VERSION_LATEST}${RESET_ALL}"
+}
+
+# SteamAppCurrentVersion Function
+function SteamAppCurrentVersion
+{
+    local APP_FILE="${STEAM_APPS_DIR}appmanifest_${GAME_APPID}.acf"
+    if [ ! -f $APP_FILE ]; then
+        return
+    fi
+
+    GAME_VERSION_CURRENT=$(cat $APP_FILE | ParseSteamAcf "AppState.buildid")
+    echo -e "${FG_YELLOW}${STR_STEAM_VERSION_CURRENT_DONE/'{0}'/$GAME_VERSION_CURRENT}${RESET_ALL}"
+}
+
+# UpdateSteamApp Function
+function UpdateSteamApp
+{
+    SteamAppLatestVersion
+    SteamAppCurrentVersion
+
+    if [ $GAME_VERSION_LATEST -eq $GAME_VERSION_CURRENT ]; then
+        return
+    fi
+
+    cd $STEAM_CMD_DIR
+
+    echo -ne "${FG_YELLOW}${STR_STEAM_UPDATE_START}${RESET_ALL}"
+    ./steamcmd.sh +login anonymous +force_install_dir $GAME_DIR +app_update $GAME_APPID validate +quit > /dev/null &
+    WaitForBackgroundProcess $! $FG_YELLOW
+
+    cd $SCRIPT_BASE_DIR
+    echo -e "${FG_YELLOW}${STR_STEAM_UPDATE_DONE}${RESET_ALL}"
+
+    SteamAppCurrentVersion
 }
 
 # ParseSteamAcf Function

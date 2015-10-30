@@ -4,6 +4,8 @@
 # Script Configuration
 /configuration.ini
 
-# Steam Directories
+# SteamCMD Directory
 /steamcmd/
-/steamapps/
+
+# Game Directory
+/ark/
