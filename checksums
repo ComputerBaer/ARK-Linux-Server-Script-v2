@@ -1,9 +1,10 @@
-76e1ff0fe94c73820e67cee87cb7d463  arkserver.sh
+9dd7d1ca362958213feb7c146866392d  arkserver.sh
 be78e19ac469cb2807442830334a1192  configuration-sample.ini
 56f64c256efb125f2db43c138ea3d5fd  .script/languages/de.lang
 41fcee184b288ca551d9a5f8c449f0b6  .script/languages/en.lang
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
-bd3331d73ebc74a5bbba047a9bfce5eb  .script/steam.sh
+da982dbcec0d59e84e665a48a1a68b80  .script/steam.sh
 adb4f6b04adca0a24bf734e88b89f1e4  .script/actions/start.sh
+83eac93fb899216f30164024e35c25e6  .script/actions/update.sh
 d5483cdc8b1d634d9bf62f1684857230  .script/actions/stop.sh
-a44553d7280cd0c5df72858f299138ee  .script/actions/install.sh
+83eac93fb899216f30164024e35c25e6  .script/actions/install.sh

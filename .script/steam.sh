@@ -106,8 +106,13 @@ function UpdateSteamApp
     cd $STEAM_CMD_DIR
 
     echo -ne "${FG_YELLOW}${STR_STEAM_UPDATE_START}${RESET_ALL}"
-    ./steamcmd.sh +login anonymous +force_install_dir $GAME_DIR +app_update $GAME_APPID validate +quit > /dev/null &
-    WaitForBackgroundProcess $! $FG_YELLOW
+    if [[ $STEAM_UPDATE_BACKGROUND == true ]]; then
+        ./steamcmd.sh +login anonymous +force_install_dir $GAME_DIR +app_update $GAME_APPID validate +quit > /dev/null &
+        WaitForBackgroundProcess $! $FG_YELLOW
+    else
+        echo # Line break
+        ./steamcmd.sh +login anonymous +force_install_dir $GAME_DIR +app_update $GAME_APPID validate +quit
+    fi
 
     cd $SCRIPT_BASE_DIR
     echo -e "${FG_YELLOW}${STR_STEAM_UPDATE_DONE}${RESET_ALL}"
