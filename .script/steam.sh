@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ACF_KEY_NOT_FOUND="NOT FOUND! ERROR?"
+
 # WaitForBackgroundProcess Function
 # Param1 - ProcessID to wait on
 # Param2 - Color of the dots (Optional)
@@ -58,7 +60,7 @@ function SteamAppLatestVersion
     local VERSION_FILE="${SCRIPT_TEMP_DIR}appversion"
 
     if [ $GAME_VERSION_LATEST -gt 0 ]; then
-        echo -e "${FG_YELLOW}${STR_STEAM_VERSION_LATEST_DONE/'{0}'/$GAME_VERSION_LATEST}${RESET_ALL}"
+        echo -e "${FG_YELLOW}${STR_GAME_VERSION_LATEST_DONE/'{0}'/$GAME_VERSION_LATEST}${RESET_ALL}"
         return
     fi
 
@@ -72,13 +74,17 @@ function SteamAppLatestVersion
     fi
 
     cd $STEAM_CMD_DIR
-    echo -ne "${FG_YELLOW}${STR_STEAM_VERSION_LATEST_START}${RESET_ALL}"
+    echo -ne "${FG_YELLOW}${STR_GAME_VERSION_LATEST_START}${RESET_ALL}"
     ./steamcmd.sh +login anonymous +app_info_print $GAME_APPID +quit | ParseSteamAcf "${GAME_APPID}.depots.branches.public.buildid" > $VERSION_FILE &
     WaitForBackgroundProcess $! $FG_YELLOW
     cd $SCRIPT_BASE_DIR
 
     GAME_VERSION_LATEST=$(cat $VERSION_FILE)
-    echo -e "${FG_YELLOW}${STR_STEAM_VERSION_LATEST_DONE/'{0}'/$GAME_VERSION_LATEST}${RESET_ALL}"
+    echo -e "${FG_YELLOW}${STR_GAME_VERSION_LATEST_DONE/'{0}'/$GAME_VERSION_LATEST}${RESET_ALL}"
+
+    if [[ $GAME_VERSION_LATEST == $ACF_KEY_NOT_FOUND ]]; then
+        exit 0
+    fi
 }
 
 # SteamAppCurrentVersion Function
@@ -90,22 +96,34 @@ function SteamAppCurrentVersion
     fi
 
     GAME_VERSION_CURRENT=$(cat $APP_FILE | ParseSteamAcf "AppState.buildid")
-    echo -e "${FG_YELLOW}${STR_STEAM_VERSION_CURRENT_DONE/'{0}'/$GAME_VERSION_CURRENT}${RESET_ALL}"
+    echo -e "${FG_YELLOW}${STR_GAME_VERSION_CURRENT/'{0}'/$GAME_VERSION_CURRENT}${RESET_ALL}"
+
+    if [[ $GAME_VERSION_CURRENT == $ACF_KEY_NOT_FOUND ]]; then
+        exit 0
+    fi
 }
 
 # UpdateSteamApp Function
 function UpdateSteamApp
 {
-    SteamAppLatestVersion
-    SteamAppCurrentVersion
+    local CHECK_VERSION=true
+    if [ ! -z $1 ]; then
+        CHECK_VERSION=$1
+    fi
 
-    if [ $GAME_VERSION_LATEST -eq $GAME_VERSION_CURRENT ]; then
-        return
+    if [[ $CHECK_VERSION == true ]]; then
+        SteamAppLatestVersion
+        SteamAppCurrentVersion
+
+        if [ $GAME_VERSION_LATEST -eq $GAME_VERSION_CURRENT ]; then
+            echo -e "${FG_YELLOW}${STR_GAME_VERSION_UPTODATE}${RESET_ALL}"
+            return
+        fi
     fi
 
     cd $STEAM_CMD_DIR
 
-    echo -ne "${FG_YELLOW}${STR_STEAM_UPDATE_START}${RESET_ALL}"
+    echo -ne "${FG_YELLOW}${STR_GAME_UPDATE_START}${RESET_ALL}"
     if [[ $STEAM_UPDATE_BACKGROUND == true ]]; then
         ./steamcmd.sh +login anonymous +force_install_dir $GAME_DIR +app_update $GAME_APPID validate +quit > /dev/null &
         WaitForBackgroundProcess $! $FG_YELLOW
@@ -115,7 +133,7 @@ function UpdateSteamApp
     fi
 
     cd $SCRIPT_BASE_DIR
-    echo -e "${FG_YELLOW}${STR_STEAM_UPDATE_DONE}${RESET_ALL}"
+    echo -e "${FG_YELLOW}${STR_GAME_UPDATE_DONE}${RESET_ALL}"
 
     SteamAppCurrentVersion
 }
@@ -161,5 +179,5 @@ function ParseSteamAcf
         fi
     done
 
-    echo "NOT FOUND! ERROR?"
+    echo $ACF_KEY_NOT_FOUND
 }
