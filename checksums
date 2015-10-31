@@ -5,6 +5,7 @@ be78e19ac469cb2807442830334a1192  configuration-sample.ini
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
 da982dbcec0d59e84e665a48a1a68b80  .script/steam.sh
 adb4f6b04adca0a24bf734e88b89f1e4  .script/actions/start.sh
+ad66aea856f7df488b956b5ffd88999c  .script/actions/help.sh
 83eac93fb899216f30164024e35c25e6  .script/actions/update.sh
 d5483cdc8b1d634d9bf62f1684857230  .script/actions/stop.sh
 83eac93fb899216f30164024e35c25e6  .script/actions/install.sh
