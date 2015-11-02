@@ -3,6 +3,10 @@
 #
 # If you want, you can do all steps manually.
 #
+# Install "curl" and "screen" (Script Dependencies)
+#    apt-get install curl
+#    apt-get install screen
+#
 # Install "lib32gcc1" (Steam Dependency)
 #    apt-get install lib32gcc1
 #
