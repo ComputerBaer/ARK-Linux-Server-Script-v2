@@ -83,6 +83,7 @@ function SteamAppLatestVersion
     echo -e "${FG_YELLOW}${STR_GAME_VERSION_LATEST_DONE/'{0}'/$GAME_VERSION_LATEST}${RESET_ALL}"
 
     if [[ $GAME_VERSION_LATEST == $ACF_KEY_NOT_FOUND ]]; then
+        CleanUp
         exit 0
     fi
 }
@@ -99,6 +100,7 @@ function SteamAppCurrentVersion
     echo -e "${FG_YELLOW}${STR_GAME_VERSION_CURRENT/'{0}'/$GAME_VERSION_CURRENT}${RESET_ALL}"
 
     if [[ $GAME_VERSION_CURRENT == $ACF_KEY_NOT_FOUND ]]; then
+        CleanUp
         exit 0
     fi
 }

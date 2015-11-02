@@ -3,9 +3,9 @@
 echo -n "Generating new Checksums ... "
 
 # Base Directory Scripts
-# md5sum arkserver.sh checksums.sh > checksums
+# md5sum arkserver.sh checksums.sh dependencies.sh > checksums
 # End users do not need checksums.sh and developers use git
-md5sum arkserver.sh > checksums
+md5sum arkserver.sh dependencies.sh > checksums
 
 # Sample Configuration File
 md5sum configuration-sample.ini >> checksums
