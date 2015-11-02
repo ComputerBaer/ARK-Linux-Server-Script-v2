@@ -26,3 +26,11 @@ STR_GAME_VERSION_LATEST_START="Rufe die aktuellste Versionsnummer des Spiels aus
 STR_GAME_VERSION_LATEST_DONE="Die neuste Versionsnummer des Spiels ist: {0}"
 STR_GAME_VERSION_CURRENT="Die aktuelle Versionsnummer des Spiels ist: {0}"
 STR_GAME_VERSION_UPTODATE="Das Spiel ist aktuell."
+STR_GAME_ALREADY_RUNNING="Das Spiel läuft bereits."
+STR_GAME_START="Das Spiel wird gestartet ..."
+STR_GAME_STOPPED="Das Spiel wurde gestoppt."
+STR_GAME_RUNNING="Das Spiel läuft zurzeit."
+STR_GAME_RUNNING_NOT="Das Spiel läuft zurzeit nicht."
+STR_GAME_STATUS="Spiel Status:"
+
+STR_EXEC_DEPENDENCIES="Du musst die 'dependencies.sh' ausführen."
