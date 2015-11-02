@@ -97,6 +97,10 @@ function UpdateScript
             fi
             echo "$FileContent" > "${LINE[0]}"
 
+            if [[ $dir == "." ]] && [[ ${file##*.} == "sh" ]]; then
+                chmod +x "${LINE[0]}"
+            fi
+
             if [[ $file == $SCRIPT_FILE_NAME ]]; then
                 selfUpdated=true
             fi
