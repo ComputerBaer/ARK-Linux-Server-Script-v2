@@ -45,6 +45,15 @@ if [[ $USER != "root" ]]; then
     exit 0
 fi
 
+# Script Dependencies
+if ! hash curl 2>/dev/null; then
+    apt-get install curl
+fi
+
+if ! hash screen 2>/dev/null; then
+    apt-get install screen
+fi
+
 # Steam Dependency
 apt-get install lib32gcc1
 
