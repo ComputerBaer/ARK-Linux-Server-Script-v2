@@ -217,6 +217,11 @@ function InitScript
     ScriptConfiguration
     ScriptLanguage 1
 
+    # Is root user
+    if [[ $(whoami) == "root" ]]; then
+        echo -e "${FG_RED}${STR_ROOT}${RESET_ALL}"
+    fi
+
     # Load all Scripts
     LoadScripts
 }

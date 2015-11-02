@@ -2,6 +2,8 @@ STR_YES="ja"
 STR_NO="nein"
 STR_YES_OR_NO="Gib '${STR_YES}' oder '${STR_NO}' ein"
 
+STR_ROOT="Dieses Skript erfordert keine root-Berechtigungen. Du solltest einen anderen Benutzer verwenden!"
+
 STR_UPDATE_DISABLED="Die automatische Aktualisierung ist deaktiviert!"
 STR_UPDATE_CHECKING="Suche nach Aktualisierungen ..."
 STR_UPDATE_CHECK_FAILED="Suche nach Aktualisierungen fehlgeschlagen!"
@@ -14,7 +16,7 @@ STR_UPDATE_SUCCESSFULL="Aktualisierung erfolgreich abgeschlossen."
 
 STR_ACTION_UNKNOWN="Die Aktion '{0}' kann nicht gefunden werden."
 
-STR_STEAM_INSTALL="Installiere Steam ..."
+STR_STEAM_INSTALL="Installiere Steam:"
 STR_STEAM_DOWNLOAD="Lade Steam herunter ..."
 STR_STEAM_EXTRACT="Entpacke Steam ..."
 STR_STEAM_SUCCESSFULL="Steam erfolgreich installiert."

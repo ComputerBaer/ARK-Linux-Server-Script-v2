@@ -2,6 +2,8 @@ STR_YES="yes"
 STR_NO="no"
 STR_YES_OR_NO="Enter '${STR_YES}' or '${STR_NO}'"
 
+STR_ROOT="This script does not require root permissions. You should use another user!"
+
 STR_UPDATE_DISABLED="Automatic updating is disabled!"
 STR_UPDATE_CHECKING="Search for updates ..."
 STR_UPDATE_CHECK_FAILED="Search for updates failed!"
@@ -14,7 +16,7 @@ STR_UPDATE_SUCCESSFULL="Update completed successfully."
 
 STR_ACTION_UNKNOWN="The action of '{0}' can not be found."
 
-STR_STEAM_INSTALL="Install Steam ..."
+STR_STEAM_INSTALL="Install Steam:"
 STR_STEAM_DOWNLOAD="Download Steam ..."
 STR_STEAM_EXTRACT="Extract Steam ..."
 STR_STEAM_SUCCESSFULL="Steam installed successfully."
