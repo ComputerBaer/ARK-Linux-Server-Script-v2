@@ -91,12 +91,13 @@ function UpdateScript
             error=true
         else
             local dir=$(dirname "${LINE[0]}")
+            local file=$(basename "${LINE[0]}")
             if [ ! -d $dir ]; then
                 mkdir -p $dir
             fi
             echo "$FileContent" > "${LINE[0]}"
 
-            if [[ $(basename ${LINE[0]}) == $SCRIPT_FILE_NAME ]]; then
+            if [[ $file == $SCRIPT_FILE_NAME ]]; then
                 selfUpdated=true
             fi
         fi
@@ -116,7 +117,7 @@ function UpdateScript
         while [[ $input != $STR_YES ]]; do
             read input
             if [[ $input == $STR_NO ]]; then
-                exit 0
+                ExitScript
             elif [[ $input != $STR_YES ]]; then
                 echo -e "${FG_YELLOW}${STR_YES_OR_NO}${RESET_ALL}"
             fi
@@ -179,7 +180,7 @@ function ScriptLanguage
     elif [ $1 -eq 1 ]; then
         # String in language file not required
         echo -e "${FG_RED}Language '${ScriptLanguage}' not found. Script execution is canceled.${RESET_ALL}"
-        exit 0
+        ExitScript
     fi
 }
 
@@ -237,6 +238,13 @@ function RunAction
 function CleanUp
 {
     rm -r -f $SCRIPT_TEMP_DIR
+}
+
+# ExitScript Function
+function ExitScript
+{
+    CleanUp
+    exit 0
 }
 
 # Run Main Functions

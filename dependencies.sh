@@ -14,6 +14,9 @@
 # Add Lines to "/etc/security/limits.conf"
 #    *               soft    nofile          100000
 #    *               hard    nofile          100000
+#    root            soft    nofile          100000
+#    root            hard    nofile          100000
+# You can make these changes only to your ARK-user. If you know what you're doing.
 #
 # Add Line to "/etc/pam.d/common-session"
 #    session required pam_limits.so
@@ -61,6 +64,8 @@ if [ $CURRENT_LIMIT -lt $REQUIRED_LIMIT ]; then
     echo "# ARK - Linux Server Script v2" >> $FILE
     echo "*               soft    nofile          ${REQUIRED_LIMIT}" >> $FILE
     echo "*               hard    nofile          ${REQUIRED_LIMIT}" >> $FILE
+    echo "root            soft    nofile          ${REQUIRED_LIMIT}" >> $FILE
+    echo "root            hard    nofile          ${REQUIRED_LIMIT}" >> $FILE
 
     FILE="/etc/pam.d/common-session"
     echo "" >> $FILE
