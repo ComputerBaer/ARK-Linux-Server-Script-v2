@@ -15,10 +15,15 @@ SCRIPT_SCRIPT_DIR="${SCRIPT_BASE_DIR}.script/"
 SCRIPT_ACTION_DIR="${SCRIPT_SCRIPT_DIR}actions/"
 SCRIPT_LANG_DIR="${SCRIPT_SCRIPT_DIR}languages/"
 SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}.temp/"
+SCRIPT_CONFIG="${SCRIPT_BASE_DIR}configuration.ini"
+SCRIPT_CONFIG_SAMPLE="${SCRIPT_BASE_DIR}configuration-sample.ini"
 
 GAME_APPID=376030
 GAME_DIR="${SCRIPT_BASE_DIR}game/"
 GAME_EXECUTABLE="${GAME_DIR}ShooterGame/Binaries/Linux/ShooterGameServer"
+GAME_CONFIG="${GAME_DIR}ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"
+GAME_CONFIG_EDIT="${SCRIPT_BASE_DIR}GameUserSettings.ini"
+GAME_CONFIG_SAMPLE="${SCRIPT_BASE_DIR}GameUserSettings-sample.ini"
 GAME_VERSION_LATEST=0
 GAME_VERSION_CURRENT=0
 
@@ -151,18 +156,26 @@ function CheckBoolean
 # ScriptConfiguration Function
 function ScriptConfiguration
 {
-    local CONFIG_FILE="configuration.ini"
-    local CONFIG_SAMPLE_FILE="configuration-sample.ini"
+    local CONFIG_DIR=$(dirname $SCRIPT_CONFIG)
+    local SAMPLE_DIR=$(dirname $SCRIPT_CONFIG_SAMPLE)
+    local SAMPLE_FILE=$(basename $SCRIPT_CONFIG_SAMPLE)
 
-    if [ ! -f $CONFIG_SAMPLE_FILE ]; then
-        curl -s "${SCRIPT_REPOSITORY_URL}${CONFIG_SAMPLE_FILE}" -o $CONFIG_SAMPLE_FILE
+    if [ ! -d $CONFIG_DIR ]; then
+        mkdir -p $CONFIG_DIR
     fi
-    source $CONFIG_SAMPLE_FILE
+    if [ ! -d $SAMPLE_DIR ]; then
+        mkdir -p $SAMPLE_DIR
+    fi
 
-    if [ ! -f $CONFIG_FILE ]; then
-        cp $CONFIG_SAMPLE_FILE $CONFIG_FILE
+    if [ ! -f $SCRIPT_CONFIG_SAMPLE ]; then
+        curl -s "${SCRIPT_REPOSITORY_URL}${SAMPLE_FILE}" -o $SCRIPT_CONFIG_SAMPLE
     fi
-    source $CONFIG_FILE
+    source $SCRIPT_CONFIG_SAMPLE
+
+    if [ ! -f $SCRIPT_CONFIG ]; then
+        cp $SCRIPT_CONFIG_SAMPLE $SCRIPT_CONFIG
+    fi
+    source $SCRIPT_CONFIG
 
     if [ ! -z $ScriptBranch ]; then
         SCRIPT_REPOSITORY_BRANCH=$ScriptBranch
@@ -224,6 +237,9 @@ function InitScript
 
     # Load all Scripts
     LoadScripts
+
+    # Generate Game Configuration (.script/game.sh)
+    CheckGameConfig
 }
 
 # RunAction Function

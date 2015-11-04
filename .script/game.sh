@@ -19,6 +19,8 @@ function StartGame
     fi
     echo -e "${FG_YELLOW}${STR_GAME_START}${RESET_ALL}"
 
+    UpdateGameConfig
+
     local EXEC_DIR=$(dirname $GAME_EXECUTABLE)
     local EXEC_NAME=$(basename $GAME_EXECUTABLE)
 
@@ -43,4 +45,32 @@ function GameStatus
     else
         GAME_IS_RUNNING=false
     fi
+}
+
+function CheckGameConfig
+{
+    local CONFIG_DIR=$(dirname $GAME_CONFIG_EDIT)
+    local SAMPLE_DIR=$(dirname $GAME_CONFIG_SAMPLE)
+
+    if [ ! -d $CONFIG_DIR ]; then
+        mkdir -p $CONFIG_DIR
+    fi
+    if [ ! -d $SAMPLE_DIR ]; then
+        mkdir -p $SAMPLE_DIR
+    fi
+
+    if [ ! -f $GAME_CONFIG_EDIT ]; then
+        cp $GAME_CONFIG_SAMPLE $GAME_CONFIG_EDIT
+    fi
+}
+
+function UpdateGameConfig
+{
+    local CONFIG_DIR=$(dirname $GAME_CONFIG)
+
+    if [ ! -d $CONFIG_DIR ]; then
+        mkdir -p $CONFIG_DIR
+    fi
+
+    cp $GAME_CONFIG_EDIT $GAME_CONFIG
 }
