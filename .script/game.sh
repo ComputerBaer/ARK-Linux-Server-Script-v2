@@ -25,7 +25,7 @@ function StartGame
     local EXEC_NAME=$(basename $GAME_EXECUTABLE)
 
     cd $EXEC_DIR
-    screen -A -m -d -S $InstanceName "./${EXEC_NAME}" "TheIsland?listen"
+    screen -A -m -d -S $InstanceName "./${EXEC_NAME}" "TheIsland?listen -server -log"
     cd $SCRIPT_BASE_DIR
 }
 
@@ -73,4 +73,8 @@ function UpdateGameConfig
     fi
 
     cp $GAME_CONFIG_EDIT $GAME_CONFIG
+
+    echo "" >> $GAME_CONFIG
+    echo "[/Script/ShooterGame.ShooterGameUserSettings]" >> $GAME_CONFIG
+    echo "Version=5" >> $GAME_CONFIG
 }
