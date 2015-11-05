@@ -3,6 +3,7 @@
 GAME_IS_RUNNING=false
 GAME_EXECUTABLE_INSTANCE="${GAME_EXECUTABLE}.${InstanceName}"
 
+# StartGame Function
 function StartGame
 {
     local REQUIRED_LIMIT=100000
@@ -32,6 +33,7 @@ function StartGame
     cd $SCRIPT_BASE_DIR
 }
 
+# StopGame Function
 function StopGame
 {
     GameStatus
@@ -52,6 +54,7 @@ function StopGame
     echo -e "${FG_YELLOW}${STR_GAME_STOPPED}${RESET_ALL}"
 }
 
+# GameStatus Function
 function GameStatus
 {
     if screen -list | grep -q $InstanceName; then
@@ -68,6 +71,7 @@ function GameStatus
     fi
 }
 
+# CheckGameConfig Function
 function CheckGameConfig
 {
     local CONFIG_DIR=$(dirname $GAME_CONFIG_EDIT)
@@ -85,6 +89,7 @@ function CheckGameConfig
     fi
 }
 
+# UpdateGameConfig Function
 function UpdateGameConfig
 {
     local CONFIG_DIR=$(dirname $GAME_CONFIG)
