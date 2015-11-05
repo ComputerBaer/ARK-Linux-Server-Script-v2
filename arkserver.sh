@@ -17,6 +17,7 @@ SCRIPT_LANG_DIR="${SCRIPT_SCRIPT_DIR}languages/"
 SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}.temp/"
 SCRIPT_CONFIG="${SCRIPT_BASE_DIR}configuration.ini"
 SCRIPT_CONFIG_SAMPLE="${SCRIPT_BASE_DIR}configuration-sample.ini"
+SCRIPT_PARAMETER=$*
 
 GAME_APPID=376030
 GAME_DIR="${SCRIPT_BASE_DIR}game/"
@@ -116,7 +117,7 @@ function UpdateScript
     if [[ $selfUpdated == true ]]; then
         echo -e "${FG_YELLOW}${STR_UPDATE_MAINFILE/'{0}'/5}${RESET_ALL}"
         sleep 5s
-        $0 $1
+        $0 $SCRIPT_PARAMETER
         exit 0
     fi
 
