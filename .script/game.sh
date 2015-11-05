@@ -1,6 +1,7 @@
 #!/bin/bash
 
 GAME_IS_RUNNING=false
+GAME_EXECUTABLE_INSTANCE="${GAME_EXECUTABLE}.${InstanceName}"
 
 function StartGame
 {
@@ -21,8 +22,10 @@ function StartGame
 
     UpdateGameConfig
 
-    local EXEC_DIR=$(dirname $GAME_EXECUTABLE)
-    local EXEC_NAME=$(basename $GAME_EXECUTABLE)
+    local EXEC_DIR=$(dirname $GAME_EXECUTABLE_INSTANCE)
+    local EXEC_NAME=$(basename $GAME_EXECUTABLE_INSTANCE)
+
+    cp $GAME_EXECUTABLE $GAME_EXECUTABLE_INSTANCE
 
     cd $EXEC_DIR
     screen -A -m -d -S $InstanceName "./${EXEC_NAME}" "TheIsland?listen -server -log"
@@ -33,8 +36,19 @@ function StopGame
 {
     GameStatus
     if [[ $GAME_IS_RUNNING == true ]]; then
-        screen -S $InstanceName -X quit
+        screen -S $InstanceName -X quit > /dev/null
+
+        sleep $GAME_STOP_WAIT &
+        WaitForBackgroundProcess $! $FG_YELLOW
+
+        local EXEC_NAME=$(basename $GAME_EXECUTABLE_INSTANCE)
+        local PROCESS_IDS=$(pgrep -f $EXEC_NAME)
+
+        if [[ ! -z $PROCESS_IDS ]]; then
+            kill -9 $(pgrep -f $EXEC_NAME)
+        fi
     fi
+
     echo -e "${FG_YELLOW}${STR_GAME_STOPPED}${RESET_ALL}"
 }
 
@@ -43,6 +57,13 @@ function GameStatus
     if screen -list | grep -q $InstanceName; then
         GAME_IS_RUNNING=true
     else
+        local EXEC_NAME=$(basename $GAME_EXECUTABLE_INSTANCE)
+        local PROCESS_IDS=$(pgrep -f $EXEC_NAME)
+
+        if [[ ! -z $PROCESS_IDS ]]; then
+            GAME_IS_RUNNING=true
+        fi
+
         GAME_IS_RUNNING=false
     fi
 }
