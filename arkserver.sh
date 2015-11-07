@@ -7,7 +7,8 @@ SCRIPT_REPOSITORY_BRANCH="master"
 SCRIPT_REPOSITORY_URL="https://raw.githubusercontent.com/${SCRIPT_REPOSITORY_USER}/${SCRIPT_REPOSITORY_NAME}/${SCRIPT_REPOSITORY_BRANCH}/"
 
 # Other Settings
-CHECK_FOR_UPDATES=true
+SCRIPT_UPDATES=true
+SCRIPT_LANGUAGE="en"
 
 SCRIPT_FILE_NAME=$(basename $(readlink -fn $0))
 SCRIPT_BASE_DIR=$(dirname $(readlink -fn $0))/
@@ -16,7 +17,7 @@ SCRIPT_ACTION_DIR="${SCRIPT_SCRIPT_DIR}actions/"
 SCRIPT_LANG_DIR="${SCRIPT_SCRIPT_DIR}languages/"
 SCRIPT_TEMP_DIR="${SCRIPT_BASE_DIR}.temp/"
 SCRIPT_CONFIG="${SCRIPT_BASE_DIR}configuration.ini"
-SCRIPT_CONFIG_SAMPLE="${SCRIPT_BASE_DIR}configuration-sample.ini"
+SCRIPT_CONFIG_SAMPLE="${SCRIPT_BASE_DIR}.script/config-samples/configuration-sample.ini"
 SCRIPT_PARAMETER=$*
 
 GAME_APPID=376030
@@ -66,7 +67,7 @@ function UpdateScript
 {
     local CHECKSUMS_FILE="${SCRIPT_TEMP_DIR}checksums"
 
-    if [[ $CHECK_FOR_UPDATES != true ]]; then
+    if [[ $SCRIPT_UPDATES != true ]]; then
         echo -e "${FG_RED}${STR_UPDATE_DISABLED}${RESET_ALL}"
         return
     fi
@@ -160,47 +161,42 @@ function CheckBoolean
 # ScriptConfiguration Function
 function ScriptConfiguration
 {
-    local CONFIG_DIR=$(dirname $SCRIPT_CONFIG)
-    local SAMPLE_DIR=$(dirname $SCRIPT_CONFIG_SAMPLE)
-    local SAMPLE_FILE=$(basename $SCRIPT_CONFIG_SAMPLE)
-
-    if [ ! -d $CONFIG_DIR ]; then
-        mkdir -p $CONFIG_DIR
-    fi
-    if [ ! -d $SAMPLE_DIR ]; then
-        mkdir -p $SAMPLE_DIR
-    fi
-
     if [ ! -f $SCRIPT_CONFIG_SAMPLE ]; then
-        curl -s "${SCRIPT_REPOSITORY_URL}${SAMPLE_FILE}" -o $SCRIPT_CONFIG_SAMPLE
+        return
     fi
     source $SCRIPT_CONFIG_SAMPLE
 
     if [ ! -f $SCRIPT_CONFIG ]; then
+        local CONFIG_DIR=$(dirname $SCRIPT_CONFIG)
+
+        if [ ! -d $CONFIG_DIR ]; then
+            mkdir -p $CONFIG_DIR
+        fi
+
         cp $SCRIPT_CONFIG_SAMPLE $SCRIPT_CONFIG
     fi
     source $SCRIPT_CONFIG
 
+    # Load Script Settings
     if [ ! -z $ScriptBranch ]; then
         SCRIPT_REPOSITORY_BRANCH=$ScriptBranch
     fi
-    CHECK_FOR_UPDATES=$(CheckBoolean $ScriptUpdates true)
+    SCRIPT_UPDATES=$(CheckBoolean $ScriptUpdates true)
+    if [ ! -z $ScriptLanguage ]; then
+        SCRIPT_LANGUAGE=$ScriptLanguage
+    fi
 }
 
 # ScriptLanguage Function
 # Param1 - Missing Language is Error, 0/1
 function ScriptLanguage
 {
-    if [ -z $ScriptLanguage ]; then
-        return
-    fi
-
-    local LANGUAGE_FILE="${SCRIPT_LANG_DIR}${ScriptLanguage}.lang"
+    local LANGUAGE_FILE="${SCRIPT_LANG_DIR}${SCRIPT_LANGUAGE}.lang"
     if [ -f $LANGUAGE_FILE ]; then
         source $LANGUAGE_FILE
     elif [ $1 -eq 1 ]; then
         # String in language file not required
-        echo -e "${FG_RED}Language '${ScriptLanguage}' not found. Script execution is canceled.${RESET_ALL}"
+        echo -e "${FG_RED}Language '${SCRIPT_LANGUAGE}' not found. Script execution is canceled.${RESET_ALL}"
         ExitScript
     fi
 }
