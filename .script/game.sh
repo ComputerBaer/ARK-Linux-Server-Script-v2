@@ -75,24 +75,24 @@ function GameStatus
 function CheckGameConfig
 {
     # GameUserSettings.ini
-    local CONFIG1_EDIT_DIR=$(dirname $GAME_CONFIG1_EDIT)
-
-    if [ ! -d $CONFIG1_EDIT_DIR ]; then
-        mkdir -p $CONFIG1_EDIT_DIR
-    fi
-
     if [ ! -f $GAME_CONFIG1_EDIT ]; then
+        local CONFIG1_EDIT_DIR=$(dirname $GAME_CONFIG1_EDIT)
+
+        if [ ! -d $CONFIG1_EDIT_DIR ]; then
+            mkdir -p $CONFIG1_EDIT_DIR
+        fi
+
         cp $GAME_CONFIG1_SAMPLE $GAME_CONFIG1_EDIT
     fi
 
     #Game.ini
-    local CONFIG2_EDIT_DIR=$(dirname $GAME_CONFIG2_EDIT)
-
-    if [ ! -d $CONFIG2_EDIT_DIR ]; then
-        mkdir -p $CONFIG2_EDIT_DIR
-    fi
-
     if [ ! -f $GAME_CONFIG2_EDIT ]; then
+        local CONFIG2_EDIT_DIR=$(dirname $GAME_CONFIG2_EDIT)
+
+        if [ ! -d $CONFIG2_EDIT_DIR ]; then
+            mkdir -p $CONFIG2_EDIT_DIR
+        fi
+
         echo "; You can edit this file" > $GAME_CONFIG2_EDIT
         echo "" >> $GAME_CONFIG2_EDIT
     fi

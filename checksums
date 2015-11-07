@@ -4,7 +4,7 @@ ac91188427eb199434b70cb89439c369  .script/helper.sh
 78b7f2c0c542294f5ac913baf342ed14  .script/languages/de.lang
 136d2ab436dd6d43a2d991800b90ca98  .script/languages/en.lang
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
-bf1c0571439152921e95227aef41b80b  .script/game.sh
+e86455fe6645452940ca9f1888dd7784  .script/game.sh
 34df0b62737bac62010b6a98ca4f3018  .script/config-samples/configuration-sample.ini
 89dcd30536ce219c58e8a6b0a6bf33e4  .script/config-samples/GameUserSettings-sample.ini
 f31761bd402c05e0d58b43420ec10b6f  .script/steam.sh
