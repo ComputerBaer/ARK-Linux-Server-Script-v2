@@ -1,4 +1,4 @@
-e4d91e72928f1d3f54901381d88875d8  arkserver.sh
+ed861c83c25a3fdba2dae7bd40577d52  arkserver.sh
 c0ad1e25e3ae1cbd65373a44d89dddb6  dependencies.sh
 34df0b62737bac62010b6a98ca4f3018  configuration-sample.ini
 89dcd30536ce219c58e8a6b0a6bf33e4  GameUserSettings-sample.ini
@@ -6,7 +6,7 @@ ac91188427eb199434b70cb89439c369  .script/helper.sh
 78b7f2c0c542294f5ac913baf342ed14  .script/languages/de.lang
 136d2ab436dd6d43a2d991800b90ca98  .script/languages/en.lang
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
-995676792bc9126fec1cb60f22230da7  .script/game.sh
+bf1c0571439152921e95227aef41b80b  .script/game.sh
 f31761bd402c05e0d58b43420ec10b6f  .script/steam.sh
 c4ba7e4589a2d532a34475c4a377a192  .script/actions/status.sh
 dad5c0be788c2e5b162d62cfe488740e  .script/actions/start.sh

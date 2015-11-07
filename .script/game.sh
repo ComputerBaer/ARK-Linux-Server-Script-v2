@@ -74,33 +74,52 @@ function GameStatus
 # CheckGameConfig Function
 function CheckGameConfig
 {
-    local CONFIG_DIR=$(dirname $GAME_CONFIG_EDIT)
-    local SAMPLE_DIR=$(dirname $GAME_CONFIG_SAMPLE)
+    # GameUserSettings.ini
+    local CONFIG1_EDIT_DIR=$(dirname $GAME_CONFIG1_EDIT)
 
-    if [ ! -d $CONFIG_DIR ]; then
-        mkdir -p $CONFIG_DIR
-    fi
-    if [ ! -d $SAMPLE_DIR ]; then
-        mkdir -p $SAMPLE_DIR
+    if [ ! -d $CONFIG1_EDIT_DIR ]; then
+        mkdir -p $CONFIG1_EDIT_DIR
     fi
 
-    if [ ! -f $GAME_CONFIG_EDIT ]; then
-        cp $GAME_CONFIG_SAMPLE $GAME_CONFIG_EDIT
+    if [ ! -f $GAME_CONFIG1_EDIT ]; then
+        cp $GAME_CONFIG1_SAMPLE $GAME_CONFIG1_EDIT
+    fi
+
+    #Game.ini
+    local CONFIG2_EDIT_DIR=$(dirname $GAME_CONFIG2_EDIT)
+
+    if [ ! -d $CONFIG2_EDIT_DIR ]; then
+        mkdir -p $CONFIG2_EDIT_DIR
+    fi
+
+    if [ ! -f $GAME_CONFIG2_EDIT ]; then
+        echo "; You can edit this file" > $GAME_CONFIG2_EDIT
+        echo "" >> $GAME_CONFIG2_EDIT
     fi
 }
 
 # UpdateGameConfig Function
 function UpdateGameConfig
 {
-    local CONFIG_DIR=$(dirname $GAME_CONFIG)
+    # GameUserSettings.ini
+    local CONFIG1_DIR=$(dirname $GAME_CONFIG1)
 
-    if [ ! -d $CONFIG_DIR ]; then
-        mkdir -p $CONFIG_DIR
+    if [ ! -d $CONFIG1_DIR ]; then
+        mkdir -p $CONFIG1_DIR
     fi
 
-    cp $GAME_CONFIG_EDIT $GAME_CONFIG
+    cp $GAME_CONFIG1_EDIT $GAME_CONFIG1
 
-    echo "" >> $GAME_CONFIG
-    echo "[/Script/ShooterGame.ShooterGameUserSettings]" >> $GAME_CONFIG
-    echo "Version=5" >> $GAME_CONFIG
+    echo "" >> $GAME_CONFIG1
+    echo "[/Script/ShooterGame.ShooterGameUserSettings]" >> $GAME_CONFIG1
+    echo "Version=5" >> $GAME_CONFIG1
+
+    #Game.ini
+    local CONFIG2_DIR=$(dirname $GAME_CONFIG2)
+
+    if [ ! -d $CONFIG2_DIR ]; then
+        mkdir -p $CONFIG2_DIR
+    fi
+
+    cp $GAME_CONFIG2_EDIT $GAME_CONFIG2
 }

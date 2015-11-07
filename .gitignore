@@ -8,6 +8,7 @@
 /steamcmd/
 
 # Game Configuration
+/Game.ini
 /GameUserSettings.ini
 
 # Game Directory

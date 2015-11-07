@@ -22,14 +22,16 @@ SCRIPT_PARAMETER=$*
 GAME_APPID=376030
 GAME_DIR="${SCRIPT_BASE_DIR}game/"
 GAME_EXECUTABLE="${GAME_DIR}ShooterGame/Binaries/Linux/ShooterGameServer"
-GAME_CONFIG="${GAME_DIR}ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"
-GAME_CONFIG_EDIT="${SCRIPT_BASE_DIR}GameUserSettings.ini"
-GAME_CONFIG_SAMPLE="${SCRIPT_BASE_DIR}GameUserSettings-sample.ini"
+GAME_CONFIG1="${GAME_DIR}ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"
+GAME_CONFIG1_EDIT="${SCRIPT_BASE_DIR}GameUserSettings.ini"
+GAME_CONFIG1_SAMPLE="${SCRIPT_BASE_DIR}GameUserSettings-sample.ini"
+GAME_CONFIG2="${GAME_DIR}ShooterGame/Saved/Config/LinuxServer/Game.ini"
+GAME_CONFIG2_EDIT="${SCRIPT_BASE_DIR}Game.ini"
 GAME_VERSION_LATEST=0
 GAME_VERSION_CURRENT=0
 GAME_STOP_WAIT=7
 
-STEAM_CLEAR_CACHE=false
+STEAM_CLEAR_CACHE=true
 STEAM_UPDATE_BACKGROUND=true
 STEAM_CMD_DIR="${SCRIPT_BASE_DIR}steamcmd/"
 STEAM_APPS_DIR="${GAME_DIR}steamapps/"
@@ -277,6 +279,4 @@ function ExitScript
 # Run Main Functions
 InitScript
 RunAction $1
-CleanUp
-
-exit 0
+ExitScript
