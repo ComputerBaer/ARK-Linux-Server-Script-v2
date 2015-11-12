@@ -45,3 +45,38 @@ function CheckInteger
         echo $default
     fi
 }
+
+# CheckDouble Function
+# Param1 - Value to check
+# Param2 - Default, if value is invalid
+function CheckDouble
+{
+    local num=$1
+    local default=$2
+    local regex='^[0-9]+([.][0-9]+)?$' # Positive Numbers
+    #local regex='^-?[0-9]+([.][0-9]+)?$' # Positive and negative Numbers
+
+    if [[ $num =~ $regex ]]; then
+        # Is valid Double
+        echo $num
+    else
+        # Is invalid Double
+        echo $default
+    fi
+}
+
+# InvertBoolean Function
+# Param1 - Boolean to invert
+function InvertBoolean
+{
+    local bool=$1
+
+    if [[ $bool =~ true ]]; then
+        echo "false"
+    elif [[ $bool =~ false ]]; then
+        echo "true"
+    else
+        # Is invalid Boolean, return Input
+        echo $bool
+    fi
+}
