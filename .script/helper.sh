@@ -16,7 +16,7 @@ function WaitForBackgroundProcess
     fi
 
     while true; do
-        if kill -0 $PROCESS_ID 2>/dev/null; then
+        if kill -0 $PROCESS_ID 2> /dev/null; then
             echo -ne "${COLOR}.${RESET_ALL}"
         else
             break

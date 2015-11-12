@@ -1,6 +1,9 @@
 # Script Temporary Directory
 /.temp/
 
+# Backup Directory
+/backups/
+
 # Script Configuration
 /configuration.ini
 

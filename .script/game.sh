@@ -142,3 +142,36 @@ function UpdateGameConfig
 
     cp $GAME_CONFIG2_EDIT $GAME_CONFIG2
 }
+
+# BackupGame Function
+function BackupGame
+{
+    if [ ! -d $GAME_SAVED_DIR ]; then
+        return
+    fi
+
+    local DATE=$(date +%Y-%m-%d_%H-%M-%S)
+    local BACKUP_FILE="${SCRIPT_BACKUP_DIR}${DATE}.tgz"
+
+    if [ ! -d $SCRIPT_BACKUP_DIR ]; then
+        mkdir -p $SCRIPT_BACKUP_DIR
+    fi
+
+    # /
+    # - configuration.ini
+    # - Game.ini
+    # - GameUserSettings.ini
+    local files="${SCRIPT_CONFIG}"
+    files="${files} ${GAME_CONFIG1_EDIT}"
+    files="${files} ${GAME_CONFIG2_EDIT}"
+    # /game/ShooterGame/Saved/
+    # - /SavedArks/TheIsland.ark
+    # - /SavedArks/TheIsland_AntiCorruptionBackup.bak
+    # - /SavedArks/TheIsland_NewLaunchBackup.bak
+    files="${files} ${GAME_SAVED_DIR}SavedArks/TheIsland.ark"
+    files="${files} ${GAME_SAVED_DIR}SavedArks/TheIsland_AntiCorruptionBackup.bak"
+    files="${files} ${GAME_SAVED_DIR}SavedArks/TheIsland_NewLaunchBackup.bak"
+
+    tar -czf $BACKUP_FILE $files 2> /dev/null &
+    WaitForBackgroundProcess $! $FG_YELLOW
+}
