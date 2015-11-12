@@ -165,9 +165,13 @@ function BackupGame
     files="${files} ${GAME_CONFIG1_EDIT}"
     files="${files} ${GAME_CONFIG2_EDIT}"
     # /game/ShooterGame/Saved/
+    # - /SavedArks/*.arkprofile
+    # - /SavedArks/*.arktribe
     # - /SavedArks/TheIsland.ark
     # - /SavedArks/TheIsland_AntiCorruptionBackup.bak
     # - /SavedArks/TheIsland_NewLaunchBackup.bak
+    files="${files} ${GAME_SAVED_DIR}SavedArks/*.arkprofile"
+    files="${files} ${GAME_SAVED_DIR}SavedArks/*.arktribe"
     files="${files} ${GAME_SAVED_DIR}SavedArks/TheIsland.ark"
     files="${files} ${GAME_SAVED_DIR}SavedArks/TheIsland_AntiCorruptionBackup.bak"
     files="${files} ${GAME_SAVED_DIR}SavedArks/TheIsland_NewLaunchBackup.bak"
