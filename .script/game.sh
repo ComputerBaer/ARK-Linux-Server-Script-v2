@@ -6,6 +6,7 @@ GAME_EXECUTABLE_INSTANCE="${GAME_EXECUTABLE}.${InstanceName}"
 # StartGame Function
 function StartGame
 {
+    # Check Dependencies
     local REQUIRED_LIMIT=100000
     local CURRENT_LIMIT=$(ulimit -n)
     if [ $CURRENT_LIMIT -lt $REQUIRED_LIMIT ]; then
@@ -14,6 +15,7 @@ function StartGame
         exit 0
     fi
 
+    # Check Server Status
     GameStatus
     if [[ $GAME_IS_RUNNING == true ]]; then
         echo -e "${FG_RED}${STR_GAME_ALREADY_RUNNING}${RESET_ALL}"
@@ -21,6 +23,7 @@ function StartGame
     fi
     echo -e "${FG_YELLOW}${STR_GAME_START}${RESET_ALL}"
 
+    # Update Game Config and prepare Server Start
     UpdateGameConfig
 
     local EXEC_DIR=$(dirname $GAME_EXECUTABLE_INSTANCE)
@@ -28,8 +31,24 @@ function StartGame
 
     cp $GAME_EXECUTABLE $GAME_EXECUTABLE_INSTANCE
 
+    # Check Params
+    if [ -z $MapName ]; then
+        MapName="TheIsland"
+    fi
+    GamePort=$(CheckInteger $GamePort 7777)
+    QueryPort=$(CheckInteger $QueryPort 27015)
+    RconPort=$(CheckInteger $RconPort 32330)
+    RconEnabled=$(CheckBoolean $RconEnabled false)
+
+    local params="${MapName}?listen"
+    params="${params}?Port=${GamePort}"
+    params="${params}?QueryPort=${QueryPort}"
+    params="${params}?RCONEnabled=${RconEnabled}"
+    params="${params}?RCONPort=${RconPort}"
+
+    # Start Server
     cd $EXEC_DIR
-    screen -A -m -d -S $InstanceName "./${EXEC_NAME}" "TheIsland?listen -server -log"
+    screen -A -m -d -S $InstanceName "./${EXEC_NAME}" "${params} -server -log"
     cd $SCRIPT_BASE_DIR
 }
 

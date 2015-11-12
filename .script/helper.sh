@@ -26,3 +26,22 @@ function WaitForBackgroundProcess
 
     echo # Line break
 }
+
+# CheckInteger Function
+# Param1 - Value to check
+# Param2 - Default, if value is invalid
+function CheckInteger
+{
+    local num=$1
+    local default=$2
+    local regex='^[0-9]+$' # Positive Numbers
+    #local regex='^-?[0-9]+$' # Positive and negative Numbers
+
+    if [[ $num =~ $regex ]]; then
+        # Is valid Integer
+        echo $num
+    else
+        # Is invalid Integer
+        echo $default
+    fi
+}
