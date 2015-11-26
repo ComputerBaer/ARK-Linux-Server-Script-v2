@@ -2,11 +2,11 @@
 c0ad1e25e3ae1cbd65373a44d89dddb6  dependencies.sh
 eac8341fadda4fb8789fec288f81d0f8  .script/helper.sh
 78b7f2c0c542294f5ac913baf342ed14  .script/languages/de.lang
-136d2ab436dd6d43a2d991800b90ca98  .script/languages/en.lang
+6c2f4c76449623e8f358cca9d77960df  .script/languages/en.lang
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
 b4e5ba35944e63db8545e5d67d773e7b  .script/game.sh
 9524890cbf28b4b524fa8c21e60eaed4  .script/config-samples/configuration-sample.ini
-89dcd30536ce219c58e8a6b0a6bf33e4  .script/config-samples/GameUserSettings-sample.ini
+2899ad15362a6ed25b5a59578435fb1e  .script/config-samples/GameUserSettings-sample.ini
 f31761bd402c05e0d58b43420ec10b6f  .script/steam.sh
 c4ba7e4589a2d532a34475c4a377a192  .script/actions/status.sh
 dad5c0be788c2e5b162d62cfe488740e  .script/actions/start.sh

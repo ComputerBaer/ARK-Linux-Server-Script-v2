@@ -22,7 +22,7 @@ STR_STEAM_EXTRACT="Extract Steam ..."
 STR_STEAM_SUCCESSFULL="Steam installed successfully."
 STR_STEAM_CACHE_CLEARED="The Steam-Cache has been flushed."
 
-STR_GAME_UPDATE_START="Install / Update the game..."
+STR_GAME_UPDATE_START="Install / Update the game ..."
 STR_GAME_UPDATE_DONE="Installation / Update of the game completed."
 STR_GAME_VERSION_LATEST_START="Retrieve the latest version number of the game from the steam network ..."
 STR_GAME_VERSION_LATEST_DONE="The latest version number of the game is: {0}"
