@@ -1,8 +1,8 @@
 4235c80522e2b8c16dafd20b68ea4955  arkserver.sh
 c0ad1e25e3ae1cbd65373a44d89dddb6  dependencies.sh
 eac8341fadda4fb8789fec288f81d0f8  .script/helper.sh
-78b7f2c0c542294f5ac913baf342ed14  .script/languages/de.lang
-6c2f4c76449623e8f358cca9d77960df  .script/languages/en.lang
+3610758e4dbd90e030624ddd7fd6a2a2  .script/languages/de.lang
+dfaf1f15694582c0f0de6ae357b64366  .script/languages/en.lang
 c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
 b4e5ba35944e63db8545e5d67d773e7b  .script/game.sh
 9524890cbf28b4b524fa8c21e60eaed4  .script/config-samples/configuration-sample.ini
