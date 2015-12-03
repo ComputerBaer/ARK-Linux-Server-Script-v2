@@ -30,6 +30,8 @@ GAME_CONFIG1_EDIT="${SCRIPT_BASE_DIR}GameUserSettings.ini"
 GAME_CONFIG1_SAMPLE="${SCRIPT_BASE_DIR}.script/config-samples/GameUserSettings-sample.ini"
 GAME_CONFIG2="${GAME_DIR}ShooterGame/Saved/Config/LinuxServer/Game.ini"
 GAME_CONFIG2_EDIT="${SCRIPT_BASE_DIR}Game.ini"
+GAME_WORKSHOP_APPID=346110
+GAME_WORKSHOP_DIR="${GAME_DIR}ShooterGame/Content/Mods/"
 GAME_VERSION_LATEST=0
 GAME_VERSION_CURRENT=0
 GAME_STOP_WAIT=7
@@ -39,6 +41,7 @@ STEAM_UPDATE_BACKGROUND=true
 STEAM_CMD_DIR="${SCRIPT_BASE_DIR}steamcmd/"
 STEAM_APPS_DIR="${GAME_DIR}steamapps/"
 STEAM_CHACHE_DIR="${HOME}/Steam/appcache"
+STEAM_WORKSHOP_DIR="${STEAM_CMD_DIR}steamapps/workshop/"
 
 # Some Colors
 FG_RED='\e[31m'
