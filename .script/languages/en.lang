@@ -35,4 +35,7 @@ STR_GAME_RUNNING="The game is currently running."
 STR_GAME_RUNNING_NOT="The game is not currently running."
 STR_GAME_STATUS="Game State:"
 
+STR_WORKSHOP_UPDATE_START="Installing / Updating the mods ..."
+STR_WORKSHOP_UPDATE_DONE="Installation / Update of the mods completed."
+
 STR_EXEC_DEPENDENCIES="You have to run the 'dependencies.sh'."

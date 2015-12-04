@@ -111,6 +111,55 @@ function UpdateSteamApp
     SteamAppCurrentVersion
 }
 
+# UpdateSteamWorkshop Function
+function UpdateSteamWorkshop
+{
+    if [ -z $GameModIds ]; then
+        return
+    fi
+
+    local workshop=""
+    local dldir="${STEAM_WORKSHOP_DIR}downloads/${GAME_WORKSHOP_APPID}"
+
+    IFS=',' read -ra modIds <<< $GameModIds
+    for modId in ${modIds[@]}; do
+        modId=$(CheckInteger $modId 0)
+        if [ $modId -gt 0 ]; then
+            workshop="${workshop} +workshop_download_item ${GAME_WORKSHOP_APPID} ${modId}"
+        fi
+    done
+
+    if [[ -z $workshop ]]; then
+        return
+    fi
+
+    rm -r -f $dldir
+
+    cd $STEAM_CMD_DIR
+
+    echo -ne "${FG_YELLOW}${STR_WORKSHOP_UPDATE_START}${RESET_ALL}"
+    while true; do # Steam Workshop Update Timeout
+        if [[ $STEAM_UPDATE_BACKGROUND == true ]]; then
+            ./steamcmd.sh +login anonymous $workshop +quit > /dev/null &
+            WaitForBackgroundProcess $! $FG_YELLOW
+        else
+            echo # Line break
+            ./steamcmd.sh +login anonymous $workshop +quit
+            echo # Line break
+        fi
+
+        if [ ! -d $dldir ]; then
+            break;
+        fi
+        echo -ne "${COLOR}*${RESET_ALL}"
+    done
+
+    cd $SCRIPT_BASE_DIR
+    echo -e "${FG_YELLOW}${STR_WORKSHOP_UPDATE_DONE}${RESET_ALL}"
+
+    return
+}
+
 # ParseSteamAcf Function
 function ParseSteamAcf
 {
