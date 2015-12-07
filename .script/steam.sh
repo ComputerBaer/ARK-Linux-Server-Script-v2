@@ -155,6 +155,9 @@ function UpdateSteamWorkshop
     done
 
     cd $SCRIPT_BASE_DIR
+
+    UpdateGameWorkshop
+
     echo -e "${FG_YELLOW}${STR_WORKSHOP_UPDATE_DONE}${RESET_ALL}"
 
     return

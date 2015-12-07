@@ -143,6 +143,33 @@ function UpdateGameConfig
     cp $GAME_CONFIG2_EDIT $GAME_CONFIG2
 }
 
+# UpdateGameWorkshop Function
+function UpdateGameWorkshop
+{
+    if [ -z $GameModIds ]; then
+        return
+    fi
+
+    local modDir="${STEAM_WORKSHOP_DIR}content/${GAME_WORKSHOP_APPID}/"
+
+    if [ ! -d $GAME_WORKSHOP_DIR ]; then
+        mkdir -p $GAME_WORKSHOP_DIR
+    fi
+
+    IFS=',' read -ra modIds <<< $GameModIds
+    for modId in ${modIds[@]}; do
+        modId=$(CheckInteger $modId 0)
+        if [ $modId -eq 0 ]; then
+            continue
+        fi
+
+        echo -ne "${FG_YELLOW}${modId} ...${RESET_ALL}"
+        rm -r -f "${GAME_WORKSHOP_DIR}${modId}"
+        cp -r "${modDir}${modId}" "${GAME_WORKSHOP_DIR}" &
+        WaitForBackgroundProcess $! $FG_YELLOW
+    done
+}
+
 # BackupGame Function
 function BackupGame
 {
