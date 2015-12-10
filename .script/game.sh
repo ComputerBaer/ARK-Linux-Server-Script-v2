@@ -40,6 +40,30 @@ function StartGame
     RconPort=$(CheckInteger $RconPort 32330)
     RconEnabled=$(CheckBoolean $RconEnabled false)
 
+    if [ ! -z $GameModIds ]; then
+        local modList="";
+        IFS=',' read -ra modIds <<< $GameModIds
+        for modId in ${modIds[@]}; do
+            modId=$(CheckInteger $modId 0)
+            if [ $modId -eq 0 ]; then
+                continue
+            fi
+
+            modList="${modList},${modId}"
+        done
+
+        if [ ! -z $modList ]; then
+            modList=${modList:1}
+
+            local mapModId=$(CheckInteger $MapModId 0)
+            if [ $mapModId -eq 0 ]; then
+                MapName="${MapName}?GameModIds=${modList}"
+            else
+                MapName="-MapModId=${mapModId}?GameModIds=${modList}"
+            fi
+        fi
+    fi
+
     local params="${MapName}?listen"
     params="${params}?Port=${GamePort}"
     params="${params}?QueryPort=${QueryPort}"
