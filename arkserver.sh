@@ -6,6 +6,23 @@ else
     CMD=$0
 fi
 
+# ReadLink Function
+function ReadLink
+{
+    local target_file=$1
+
+    cd `dirname $target_file`
+    target_file=`basename $target_file`
+
+    while [ -L "$target_file" ]; do
+        target_file=`readlink $target_file`
+        cd `dirname $target_file`
+        target_file=`basename $target_file`
+    done
+
+    echo `pwd -P`/$target_file
+}
+
 # Script Github Repository
 SCRIPT_REPOSITORY_USER="ComputerBaer"
 SCRIPT_REPOSITORY_NAME="ARK-Linux-Server-Script-v2"
@@ -17,8 +34,8 @@ SCRIPT_COLOR=true
 SCRIPT_UPDATES=true
 SCRIPT_LANGUAGE="en"
 
-SCRIPT_FILE_NAME=$(basename $(readlink -fn $CMD))
-SCRIPT_BASE_DIR=$(dirname $(readlink -fn $CMD))/
+SCRIPT_FILE_NAME=$(basename $(ReadLink $CMD))
+SCRIPT_BASE_DIR=$(dirname $(ReadLink $CMD))/
 SCRIPT_SCRIPT_DIR="${SCRIPT_BASE_DIR}.script/"
 SCRIPT_ACTION_DIR="${SCRIPT_SCRIPT_DIR}actions/"
 SCRIPT_LANG_DIR="${SCRIPT_SCRIPT_DIR}languages/"
