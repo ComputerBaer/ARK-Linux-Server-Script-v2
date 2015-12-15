@@ -103,7 +103,14 @@ function UpdateScript
     echo "$Checksums" > $CHECKSUMS_FILE
 
     # Compare Checksums
-    local CheckResult=$(md5sum -c $CHECKSUMS_FILE --quiet 2> /dev/null)
+    local CheckOutput=$(md5sum -c $CHECKSUMS_FILE 2> /dev/null)
+    local CheckResult=""
+    while IFS=':' read -ra LINE; do
+        if [[ ${LINE[1]} != " OK" ]]; then
+            CheckResult="${CheckResult}${LINE[0]}\n"
+        fi
+    done <<< "$CheckOutput"
+
     if [[ $CheckResult == "" ]]; then
         echo -e "${FG_GREEN}${STR_UPDATE_UPTODATE}${RESET_ALL}"
         return
@@ -114,7 +121,7 @@ function UpdateScript
     # Update Files
     local error=false
     local selfUpdated=false
-    while IFS=':' read -ra LINE; do
+    while read -ra LINE; do
         local FileContent=$(curl -s "${SCRIPT_REPOSITORY_URL}${LINE[0]}")
         if [[ $FileContent == "Not Found" ]]; then
             echo -e "${FG_RED}${STR_UPDATE_FILE_FAILED/'{0}'/${LINE[0]}}${RESET_ALL}"
@@ -135,7 +142,7 @@ function UpdateScript
                 selfUpdated=true
             fi
         fi
-    done <<< "$CheckResult"
+    done <<< "$(echo -e $CheckResult)"
 
     # Main Script was updated
     if [[ $selfUpdated == true ]]; then
