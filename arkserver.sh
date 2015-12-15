@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -z $0 ]; then
+    CMD=$BASH_SOURCE
+else
+    CMD=$0
+fi
+
 # Script Github Repository
 SCRIPT_REPOSITORY_USER="ComputerBaer"
 SCRIPT_REPOSITORY_NAME="ARK-Linux-Server-Script-v2"
@@ -10,8 +16,8 @@ SCRIPT_REPOSITORY_URL="https://raw.githubusercontent.com/${SCRIPT_REPOSITORY_USE
 SCRIPT_UPDATES=true
 SCRIPT_LANGUAGE="en"
 
-SCRIPT_FILE_NAME=$(basename $(readlink -fn $0))
-SCRIPT_BASE_DIR=$(dirname $(readlink -fn $0))/
+SCRIPT_FILE_NAME=$(basename $(readlink -fn $CMD))
+SCRIPT_BASE_DIR=$(dirname $(readlink -fn $CMD))/
 SCRIPT_SCRIPT_DIR="${SCRIPT_BASE_DIR}.script/"
 SCRIPT_ACTION_DIR="${SCRIPT_SCRIPT_DIR}actions/"
 SCRIPT_LANG_DIR="${SCRIPT_SCRIPT_DIR}languages/"
@@ -123,7 +129,7 @@ function UpdateScript
     if [[ $selfUpdated == true ]]; then
         echo -e "${FG_YELLOW}${STR_UPDATE_MAINFILE/'{0}'/5}${RESET_ALL}"
         sleep 5s
-        $0 $SCRIPT_PARAMETER
+        $CMD $SCRIPT_PARAMETER
         exit 0
     fi
 
