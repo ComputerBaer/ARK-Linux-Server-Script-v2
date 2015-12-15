@@ -13,6 +13,7 @@ SCRIPT_REPOSITORY_BRANCH="master"
 SCRIPT_REPOSITORY_URL="https://raw.githubusercontent.com/${SCRIPT_REPOSITORY_USER}/${SCRIPT_REPOSITORY_NAME}/${SCRIPT_REPOSITORY_BRANCH}/"
 
 # Other Settings
+SCRIPT_COLOR=true
 SCRIPT_UPDATES=true
 SCRIPT_LANGUAGE="en"
 
@@ -45,12 +46,6 @@ STEAM_UPDATE_BACKGROUND=true
 STEAM_CMD_DIR="${SCRIPT_BASE_DIR}steamcmd/"
 STEAM_APPS_DIR="${GAME_DIR}steamapps/"
 STEAM_CHACHE_DIR="${HOME}/Steam/appcache"
-
-# Some Colors
-FG_RED='\e[31m'
-FG_GREEN='\e[32m'
-FG_YELLOW='\e[33m'
-RESET_ALL='\e[0m'
 
 # Some Strings
 STR_YES="yes"
@@ -195,6 +190,24 @@ function ScriptConfiguration
     fi
 }
 
+# ScriptColor Function
+function ScriptColor
+{
+    if [[ $SCRIPT_COLOR == true ]]; then
+        # Some Colors
+        FG_RED='\e[31m'
+        FG_GREEN='\e[32m'
+        FG_YELLOW='\e[33m'
+        RESET_ALL='\e[0m'
+    else
+        # Some Colors
+        FG_RED=''
+        FG_GREEN=''
+        FG_YELLOW=''
+        RESET_ALL=''
+    fi
+}
+
 # ScriptLanguage Function
 # Param1 - Missing Language is Error, 0/1
 function ScriptLanguage
@@ -230,12 +243,14 @@ function InitScript
 
     # Load Configuration and Language
     ScriptConfiguration
+    ScriptColor
     ScriptLanguage 0
 
     # Update Script
     UpdateScript
     # Reload Configuration and Language
     ScriptConfiguration
+    ScriptColor
     ScriptLanguage 1
 
     # Is root user

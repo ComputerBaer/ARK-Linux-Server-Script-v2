@@ -1,9 +1,9 @@
-911002bf57c248aaad25fab35025d6b3  arkserver.sh
+a38b02cdcd8c412be9ac19a924c893f5  arkserver.sh
 c0ad1e25e3ae1cbd65373a44d89dddb6  dependencies.sh
 eac8341fadda4fb8789fec288f81d0f8  .script/helper.sh
 3610758e4dbd90e030624ddd7fd6a2a2  .script/languages/de.lang
 dfaf1f15694582c0f0de6ae357b64366  .script/languages/en.lang
-c2bedf020dad3dfe383a0de88d8794ea  .script/formatting.sh
+b9493c245589b3fad179ea4b2ae104a4  .script/formatting.sh
 b4e5ba35944e63db8545e5d67d773e7b  .script/game.sh
 9524890cbf28b4b524fa8c21e60eaed4  .script/config-samples/configuration-sample.ini
 2899ad15362a6ed25b5a59578435fb1e  .script/config-samples/GameUserSettings-sample.ini
