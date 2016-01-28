@@ -90,7 +90,7 @@ function CheckScriptDependencies
 {
     # Check Dependencies
     local dependencies=""
-    if [[ $(IsInstalled curl32) == false ]]; then
+    if [[ $(IsInstalled curl) == false ]]; then
         dependencies="${dependencies} curl"
     fi
     if [[ $(IsInstalled screen) == false ]]; then
