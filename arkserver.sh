@@ -328,8 +328,8 @@ function InitScript
     # Reload Configuration (Allow override settings.ini and other variables)
     ScriptConfiguration
 
-    # Generate Game Configuration (.script/game.sh)
-    CheckGameConfig
+    # Complete Script Initialization (.script/script.sh)
+    CompleteInit
 }
 
 # RunAction Function
@@ -353,6 +353,9 @@ function RunAction
 function CleanUp
 {
     rm -r -f $SCRIPT_TEMP_DIR
+
+    # Complete Script CleanUp (.script/script.sh)
+    CompleteCleanUp
 }
 
 # ExitScript Function
