@@ -80,12 +80,12 @@ function UpdateSystemInformation
     fi
 
     # Package Manager
-    if [[ $(IsInstalled apt-get) == true ]]; then
-        SYSTEM_PACKAGE_MANAGER="apt-get"
-    elif [[ $(IsInstalled yum) == true ]]; then
+    if [[ $(IsInstalled yum) == true ]]; then
         SYSTEM_PACKAGE_MANAGER="yum"
     elif [[ $(IsInstalled zypper) == true ]]; then
         SYSTEM_PACKAGE_MANAGER="zypper"
+    elif [[ $(IsInstalled apt-get) == true ]]; then
+        SYSTEM_PACKAGE_MANAGER="apt-get"
     fi
 }
 
