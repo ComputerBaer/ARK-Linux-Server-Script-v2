@@ -4,6 +4,9 @@ STR_YES_OR_NO="Gib '${STR_YES}' oder '${STR_NO}' ein"
 
 STR_ROOT="Dieses Skript erfordert keine root-Berechtigungen. Du solltest einen anderen Benutzer verwenden!"
 
+STR_DEPENDENCIES_MISSING="Du musst '{0}' installieren, um dieses Skript auszuführen!"
+STR_DEPENDENCIES_INSTALL="Fehlende Abhängigkeiten installieren? ${STR_YES}/${STR_NO}"
+
 STR_UPDATE_DISABLED="Die automatische Aktualisierung ist deaktiviert!"
 STR_UPDATE_CHECKING="Suche nach Aktualisierungen ..."
 STR_UPDATE_CHECK_FAILED="Suche nach Aktualisierungen fehlgeschlagen!"

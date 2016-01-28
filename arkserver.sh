@@ -69,6 +69,9 @@ STR_YES="yes"
 STR_NO="no"
 STR_YES_OR_NO="Enter '${STR_YES}' or '${STR_NO}'"
 
+STR_DEPENDENCIES_MISSING="You must install '{0}' to run this script!"
+STR_DEPENDENCIES_INSTALL="Install missing dependencies? ${STR_YES}/${STR_NO}"
+
 STR_UPDATE_DISABLED="Automatic updating is disabled!"
 STR_UPDATE_CHECKING="Search for updates ..."
 STR_UPDATE_CHECK_FAILED="Search for updates failed!"
@@ -81,6 +84,65 @@ STR_UPDATE_SUCCESSFULL="Update completed successfully."
 
 # Case Insensitive String Comparison
 shopt -s nocasematch
+
+# CheckScriptDependencies Function
+function CheckScriptDependencies
+{
+    # Check Dependencies
+    local dependencies=""
+    if [[ $(IsInstalled curl32) == false ]]; then
+        dependencies="${dependencies} curl"
+    fi
+    if [[ $(IsInstalled screen) == false ]]; then
+        dependencies="${dependencies} screen"
+    fi
+
+    # Missing Dependencies found?
+    if [[ -z $dependencies ]]; then
+        return
+    fi
+    echo -e "${FG_RED}${STR_DEPENDENCIES_MISSING/'{0}'/${dependencies:1}}${RESET_ALL}"
+
+    # Is root user
+    if [[ $(whoami) == "root" ]]; then
+        # Install missing Dependencies?
+        echo -e "${FG_YELLOW}${STR_DEPENDENCIES_INSTALL}${RESET_ALL}"
+        if [[ $(DialogYesNo) == true ]]; then
+            echo # Line break
+            apt-get install $dependencies
+            echo # Line break
+            return
+        fi
+    fi
+
+    ExitScript
+}
+
+# IsInstalled Function
+function IsInstalled
+{
+    if hash $1 2>/dev/null; then
+        echo true
+    else
+        echo false
+    fi
+}
+
+# DialogYesNo Function
+function DialogYesNo
+{
+    while [[ $input != $STR_YES ]]; do
+        #read -p "$STR_YES / $STR_NO : " input
+        read -p "${STR_YES_OR_NO}: " input
+        if [[ $input == $STR_NO ]]; then
+            echo false
+            return
+        elif [[ $input == $STR_YES ]]; then
+            echo true
+            return
+        fi
+    done
+}
 
 # UpdateScript Function
 function UpdateScript
@@ -155,14 +217,9 @@ function UpdateScript
     # Error while updating
     if [[ $error == true ]]; then
         echo -e "${FG_YELLOW}${STR_UPDATE_ERROR_CONTINUE}${RESET_ALL}"
-        while [[ $input != $STR_YES ]]; do
-            read input
-            if [[ $input == $STR_NO ]]; then
-                ExitScript
-            elif [[ $input != $STR_YES ]]; then
-                echo -e "${FG_YELLOW}${STR_YES_OR_NO}${RESET_ALL}"
-            fi
-        done
+        if [[ $(DialogYesNo) == false ]]; then
+            ExitScript
+        fi
     else
         echo -e "${FG_GREEN}${STR_UPDATE_SUCCESSFULL}${RESET_ALL}"
     fi
@@ -270,8 +327,11 @@ function InitScript
     ScriptColor
     ScriptLanguage 0
 
+    # Check Script Dependencies
+    CheckScriptDependencies
     # Update Script
     UpdateScript
+
     # Reload Configuration and Language
     ScriptConfiguration
     ScriptColor

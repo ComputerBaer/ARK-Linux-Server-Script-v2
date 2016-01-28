@@ -4,6 +4,9 @@ STR_YES_OR_NO="Enter '${STR_YES}' or '${STR_NO}'"
 
 STR_ROOT="This script does not require root permissions. You should use another user!"
 
+STR_DEPENDENCIES_MISSING="You must install '{0}' to run this script!"
+STR_DEPENDENCIES_INSTALL="Install missing dependencies? ${STR_YES}/${STR_NO}"
+
 STR_UPDATE_DISABLED="Automatic update is disabled!"
 STR_UPDATE_CHECKING="Search for updates ..."
 STR_UPDATE_CHECK_FAILED="Search for updates failed!"
