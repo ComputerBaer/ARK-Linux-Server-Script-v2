@@ -45,25 +45,6 @@ SCRIPT_CONFIG="${SCRIPT_BASE_DIR}configuration.ini"
 SCRIPT_CONFIG_SAMPLE="${SCRIPT_BASE_DIR}.script/config-samples/configuration-sample.ini"
 SCRIPT_PARAMETER=$*
 
-GAME_APPID=376030
-GAME_DIR="${SCRIPT_BASE_DIR}game/"
-GAME_EXECUTABLE="${GAME_DIR}ShooterGame/Binaries/Linux/ShooterGameServer"
-GAME_SAVED_DIR="${GAME_DIR}ShooterGame/Saved/"
-GAME_CONFIG1="${GAME_DIR}ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"
-GAME_CONFIG1_EDIT="${SCRIPT_BASE_DIR}GameUserSettings.ini"
-GAME_CONFIG1_SAMPLE="${SCRIPT_BASE_DIR}.script/config-samples/GameUserSettings-sample.ini"
-GAME_CONFIG2="${GAME_DIR}ShooterGame/Saved/Config/LinuxServer/Game.ini"
-GAME_CONFIG2_EDIT="${SCRIPT_BASE_DIR}Game.ini"
-GAME_VERSION_LATEST=0
-GAME_VERSION_CURRENT=0
-GAME_STOP_WAIT=7
-
-STEAM_CLEAR_CACHE=true
-STEAM_UPDATE_BACKGROUND=true
-STEAM_CMD_DIR="${SCRIPT_BASE_DIR}steamcmd/"
-STEAM_APPS_DIR="${GAME_DIR}steamapps/"
-STEAM_CHACHE_DIR="${HOME}/Steam/appcache"
-
 # Some Strings
 STR_YES="yes"
 STR_NO="no"
@@ -344,6 +325,8 @@ function InitScript
 
     # Load all Scripts
     LoadScripts
+    # Reload Configuration (Allow override settings.ini and other variables)
+    ScriptConfiguration
 
     # Generate Game Configuration (.script/game.sh)
     CheckGameConfig
