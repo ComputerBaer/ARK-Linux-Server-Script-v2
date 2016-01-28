@@ -63,8 +63,28 @@ STR_UPDATE_MAINFILE="Main script has been updated. Restart script in {0} seconds
 STR_UPDATE_ERROR_CONTINUE="Error occurred during the update! Should be tried to continue? ${STR_YES}/${STR_NO}"
 STR_UPDATE_SUCCESSFULL="Update completed successfully."
 
+# System Information
+SYSTEM_IS_ROOT=false
+SYSTEM_PACKAGE_MANAGER=""
+
 # Case Insensitive String Comparison
 shopt -s nocasematch
+
+# UpdateSystemInformation Function
+function UpdateSystemInformation
+{
+    # Is root user
+    if [[ $(whoami) == "root" ]]; then
+        SYSTEM_IS_ROOT=true
+    fi
+
+    # Package Manager
+    if [[ $(IsInstalled apt-get) == true ]]; then
+        SYSTEM_PACKAGE_MANAGER="apt-get install"
+    elif [[ $(IsInstalled yum) == true ]]; then
+        SYSTEM_PACKAGE_MANAGER="yum install"
+    fi
+}
 
 # CheckScriptDependencies Function
 function CheckScriptDependencies
@@ -74,9 +94,6 @@ function CheckScriptDependencies
     if [[ $(IsInstalled curl) == false ]]; then
         dependencies="${dependencies} curl"
     fi
-    if [[ $(IsInstalled screen) == false ]]; then
-        dependencies="${dependencies} screen"
-    fi
 
     # Missing Dependencies found?
     if [[ -z $dependencies ]]; then
@@ -85,12 +102,12 @@ function CheckScriptDependencies
     echo -e "${FG_RED}${STR_DEPENDENCIES_MISSING/'{0}'/${dependencies:1}}${RESET_ALL}"
 
     # Is root user
-    if [[ $(whoami) == "root" ]]; then
+    if [[ $SYSTEM_IS_ROOT == true ]] && [ ! -z "$SYSTEM_PACKAGE_MANAGER" ]; then
         # Install missing Dependencies?
         echo -e "${FG_YELLOW}${STR_DEPENDENCIES_INSTALL}${RESET_ALL}"
         if [[ $(DialogYesNo) == true ]]; then
             echo # Line break
-            apt-get install $dependencies
+            $SYSTEM_PACKAGE_MANAGER $dependencies
             echo # Line break
             return
         fi
@@ -303,6 +320,9 @@ function InitScript
         mkdir -p $SCRIPT_TEMP_DIR
     fi
 
+    # Update System Information
+    UpdateSystemInformation
+
     # Load Configuration and Language
     ScriptConfiguration
     ScriptColor
@@ -319,7 +339,7 @@ function InitScript
     ScriptLanguage 1
 
     # Is root user
-    if [[ $(whoami) == "root" ]]; then
+    if [[ $SYSTEM_IS_ROOT == true ]]; then
         echo -e "${FG_RED}${STR_ROOT}${RESET_ALL}"
     fi
 
@@ -328,8 +348,15 @@ function InitScript
     # Reload Configuration (Allow override settings.ini and other variables)
     ScriptConfiguration
 
+    # Check Additional Script Dependencies (.script/script.sh)
+    if [[ $(type -t CheckAdditionalDependencies) == "function" ]]; then
+        CheckAdditionalDependencies
+    fi
+
     # Complete Script Initialization (.script/script.sh)
-    CompleteInit
+    if [[ $(type -t CompleteInit) == "function" ]]; then
+        CompleteInit
+    fi
 }
 
 # RunAction Function
@@ -355,7 +382,9 @@ function CleanUp
     rm -r -f $SCRIPT_TEMP_DIR
 
     # Complete Script CleanUp (.script/script.sh)
-    CompleteCleanUp
+    if [[ $(type -t CompleteCleanUp) == "function" ]]; then
+        CompleteCleanUp
+    fi
 }
 
 # ExitScript Function
