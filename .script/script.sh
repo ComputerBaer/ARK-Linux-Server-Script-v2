@@ -8,9 +8,9 @@ function CheckAdditionalDependencies
     if [[ $(IsInstalled screen) == false ]]; then
         dependencies="${dependencies} screen"
     fi
-    if [ ! -f "/usr/lib32/libgcc_s.so.1" ]; then
-        dependencies="${dependencies} lib32gcc1"
-    fi
+    #if [ ! -f "/usr/lib32/libgcc_s.so.1" ]; then
+    #    dependencies="${dependencies} lib32gcc1"
+    #fi
 
     # Missing Dependencies found?
     if [[ -z $dependencies ]]; then
@@ -24,7 +24,7 @@ function CheckAdditionalDependencies
         echo -e "${FG_YELLOW}${STR_DEPENDENCIES_INSTALL}${RESET_ALL}"
         if [[ $(DialogYesNo) == true ]]; then
             echo # Line break
-            $SYSTEM_PACKAGE_MANAGER $dependencies
+            $SYSTEM_PACKAGE_MANAGER $SYSTEM_PACKAGE_MANAGER_INSTALL $dependencies
             echo # Line break
             return
         fi

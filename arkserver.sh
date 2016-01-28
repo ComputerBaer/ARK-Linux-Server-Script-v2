@@ -66,6 +66,7 @@ STR_UPDATE_SUCCESSFULL="Update completed successfully."
 # System Information
 SYSTEM_IS_ROOT=false
 SYSTEM_PACKAGE_MANAGER=""
+SYSTEM_PACKAGE_MANAGER_INSTALL="install"
 
 # Case Insensitive String Comparison
 shopt -s nocasematch
@@ -80,9 +81,11 @@ function UpdateSystemInformation
 
     # Package Manager
     if [[ $(IsInstalled apt-get) == true ]]; then
-        SYSTEM_PACKAGE_MANAGER="apt-get install"
+        SYSTEM_PACKAGE_MANAGER="apt-get"
     elif [[ $(IsInstalled yum) == true ]]; then
-        SYSTEM_PACKAGE_MANAGER="yum install"
+        SYSTEM_PACKAGE_MANAGER="yum"
+    elif [[ $(IsInstalled zypper) == true ]]; then
+        SYSTEM_PACKAGE_MANAGER="zypper"
     fi
 }
 
@@ -107,7 +110,7 @@ function CheckScriptDependencies
         echo -e "${FG_YELLOW}${STR_DEPENDENCIES_INSTALL}${RESET_ALL}"
         if [[ $(DialogYesNo) == true ]]; then
             echo # Line break
-            $SYSTEM_PACKAGE_MANAGER $dependencies
+            $SYSTEM_PACKAGE_MANAGER $SYSTEM_PACKAGE_MANAGER_INSTALL $dependencies
             echo # Line break
             return
         fi

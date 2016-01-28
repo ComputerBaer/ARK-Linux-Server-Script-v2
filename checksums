@@ -1,4 +1,4 @@
-dc3060af6e94a867b21958afe65b3297  arkserver.sh
+f1a56a2f9807ca302290e7e60afbd382  arkserver.sh
 c0ad1e25e3ae1cbd65373a44d89dddb6  dependencies.sh
 eac8341fadda4fb8789fec288f81d0f8  .script/helper.sh
 4bcb78e49e1e9dc574512ca6720d81a3  .script/languages/de.lang
@@ -18,4 +18,4 @@ ad66aea856f7df488b956b5ffd88999c  .script/actions/help.sh
 eed563403b82c195102ae43bdfcd258c  .script/actions/stop.sh
 13b5df4d7053fdc0b3acbcece7ae8488  .script/actions/view.sh
 83eac93fb899216f30164024e35c25e6  .script/actions/install.sh
-d49441c4bc9889cd4be6a5974db29178  .script/script.sh
+dcaaa830701b4056b17430977467fa99  .script/script.sh
