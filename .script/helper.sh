@@ -2,7 +2,8 @@
 
 # WaitForBackgroundProcess Function
 # Param1 - ProcessID to wait on
-# Param2 - Color of the dots (Optional)
+# Param2 - Color of the dots (Optional, default $FG_WHITE)
+# Param3 - Line brek at end (Optional, default true)
 function WaitForBackgroundProcess
 {
     local PROCESS_ID=$1
@@ -24,7 +25,9 @@ function WaitForBackgroundProcess
         sleep 0.5s
     done
 
-    echo # Line break
+    if [ -z $3 ] || [[ $3 == true ]]; then
+        echo # Line break
+    fi
 }
 
 # CheckInteger Function
