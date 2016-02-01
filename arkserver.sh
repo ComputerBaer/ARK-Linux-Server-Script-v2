@@ -24,10 +24,11 @@ function ReadLink
 }
 
 # Script Github Repository
+SCRIPT_REPOSITORY_HOST="https://raw.githubusercontent.com"
 SCRIPT_REPOSITORY_USER="ComputerBaer"
 SCRIPT_REPOSITORY_NAME="ARK-Linux-Server-Script-v2"
 SCRIPT_REPOSITORY_BRANCH="master"
-SCRIPT_REPOSITORY_URL="https://raw.githubusercontent.com/${SCRIPT_REPOSITORY_USER}/${SCRIPT_REPOSITORY_NAME}/${SCRIPT_REPOSITORY_BRANCH}/"
+SCRIPT_REPOSITORY_URL="${SCRIPT_REPOSITORY_HOST}/${SCRIPT_REPOSITORY_USER}/${SCRIPT_REPOSITORY_NAME}/${SCRIPT_REPOSITORY_BRANCH}/"
 
 # Other Settings
 SCRIPT_COLOR=true
@@ -265,6 +266,7 @@ function ScriptConfiguration
     # Load Script Settings
     if [ ! -z $ScriptBranch ]; then
         SCRIPT_REPOSITORY_BRANCH=$ScriptBranch
+        SCRIPT_REPOSITORY_URL="${SCRIPT_REPOSITORY_HOST}/${SCRIPT_REPOSITORY_USER}/${SCRIPT_REPOSITORY_NAME}/${SCRIPT_REPOSITORY_BRANCH}/"
     fi
     SCRIPT_UPDATES=$(CheckBoolean $ScriptUpdates true)
     if [ ! -z $ScriptLanguage ]; then
