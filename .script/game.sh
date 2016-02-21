@@ -67,9 +67,11 @@ function StopGame
         if [[ ! -z $PROCESS_IDS ]]; then
             kill -9 $(pgrep -f $EXEC_NAME)
         fi
-    fi
 
-    echo -e "${FG_YELLOW}${STR_GAME_STOPPED}${RESET_ALL}"
+        echo -e "${FG_YELLOW}${STR_GAME_STOPPED}${RESET_ALL}"
+    else
+        echo -e "${FG_YELLOW}${STR_GAME_RUNNING_NOT}${RESET_ALL}"
+    fi
 }
 
 # GameStatus Function
