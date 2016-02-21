@@ -38,6 +38,8 @@ function CompleteInit
 {
     # Generate Game Configuration (.script/game.sh)
     CheckGameConfig
+
+    GAME_EXECUTABLE_INSTANCE="${GAME_EXECUTABLE}.${InstanceName}"
 }
 
 # CompleteCleanUp Function

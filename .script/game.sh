@@ -1,7 +1,6 @@
 #!/bin/bash
 
 GAME_IS_RUNNING=false
-GAME_EXECUTABLE_INSTANCE="${GAME_EXECUTABLE}.${InstanceName}"
 
 # StartGame Function
 function StartGame

@@ -4,7 +4,7 @@ b0264dc1bc9576cab6968f65f14669fc  .script/helper.sh
 4bcb78e49e1e9dc574512ca6720d81a3  .script/languages/de.lang
 345826cc3f536f0db6e65cfd74a83b84  .script/languages/en.lang
 b9493c245589b3fad179ea4b2ae104a4  .script/formatting.sh
-b4e5ba35944e63db8545e5d67d773e7b  .script/game.sh
+e00e157f7d28e8e9671bd7b613c5c37f  .script/game.sh
 30da168243c588b014309a5f620a1e03  .script/settings.ini
 9524890cbf28b4b524fa8c21e60eaed4  .script/config-samples/configuration-sample.ini
 2899ad15362a6ed25b5a59578435fb1e  .script/config-samples/GameUserSettings-sample.ini
@@ -18,4 +18,4 @@ ad66aea856f7df488b956b5ffd88999c  .script/actions/help.sh
 eed563403b82c195102ae43bdfcd258c  .script/actions/stop.sh
 13b5df4d7053fdc0b3acbcece7ae8488  .script/actions/view.sh
 83eac93fb899216f30164024e35c25e6  .script/actions/install.sh
-dcaaa830701b4056b17430977467fa99  .script/script.sh
+49fb6f76bcd005100329c3dd8a8ad21b  .script/script.sh
